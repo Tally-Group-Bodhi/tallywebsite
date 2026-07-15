@@ -281,16 +281,13 @@ export default function AboutPage() {
           <div className="mb-[48px] max-w-[820px]">
             <div className="text-xs font-medium text-fg2 uppercase tracking-[0.1em] mb-[12px] inline-flex items-center gap-2">
               <span className="w-[18px] h-[1px] bg-turquoise inline-block" />
-              Our commitments
+              Mission & Values
             </div>
             <h2 className="text-[30px] lg:text-[60px] font-light leading-[1.1] tracking-[-0.02em] text-navy">
-              What we stand for.
+              Committed to our clients, the customers they serve, and our employees.
             </h2>
             <p className="mt-[20px] text-[17px] leading-[1.7] text-fg2 m-0 max-w-[68ch]">
-              Utilities play a critical role in the communities they serve, and better technology unlocks better outcomes for everyone.
-            </p>
-            <p className="mt-[16px] text-[17px] leading-[1.7] text-fg2 m-0 max-w-[68ch]">
-              We exist to design, build and operate world-leading utility software that automates billing, empowers customers and fast-tracks innovation, enabling future utility technologies that will change our world &ndash; for a cleaner, smarter, brighter tomorrow.
+              Our values guide every decision we make, shaping how we deliver results, build trust, and create opportunities for growth.
             </p>
           </div>
 
