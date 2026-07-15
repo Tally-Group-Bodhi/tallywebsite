@@ -9,6 +9,31 @@ export const metadata: Metadata = {
     "Tally is a world-leading cloud-native software platform and ecosystem enabling decarbonisation, digitisation and decentralisation for energy retailers globally.",
 };
 
+const skippingStoneLinkClassName =
+  "text-navy font-medium hover:text-turquoise transition-colors underline decoration-stroke1 underline-offset-2";
+
+const usHistoryLead = (
+  <>
+    Tally Group formed in 2021, following the merger of leading cloud-based billing
+    solutions provider Agility CIS and fast-growing energy retail SaaS software
+    provider Tally. The Tally Group includes Znalytics (US/Japan) and Webtools Energy
+    (Australia and New Zealand), which were both acquired by Agility CIS in 2020. In
+    May 2022, we rebranded globally as Tally Group. In 2026, Tally Group acquired{" "}
+    <a
+      href="https://skippingstone.com/"
+      target="_blank"
+      rel="noopener noreferrer"
+      className={skippingStoneLinkClassName}
+    >
+      Skipping Stone
+    </a>
+    , an energy consulting firm, marking a key step in global growth. Combining
+    Tally&apos;s technology with Skipping Stone&apos;s market expertise strengthens
+    end-to-end solutions. This expands our reach in the U.S. and Japan, positioning
+    us to help clients navigate change and unlock value in evolving energy markets.
+  </>
+);
+
 const storyCards = [
   {
     icon: "rocket_launch",
@@ -66,7 +91,7 @@ const clientCommitments = [
 
 const customerCommitments = [
   { icon: "stars", text: "An exceptional end-to-end customer experience" },
-  { icon: "smart_toy", text: "Personalised, AI-powered self-service automation" },
+  { icon: "smart_toy", text: "Personalized, AI-powered self-service automation" },
   { icon: "rocket_launch", text: "Access to the latest in future-ready technology" },
   { icon: "receipt_long", text: "Accurate billing with payment options" },
   { icon: "psychology", text: "Knowledge-enabled customer service reps" },
@@ -82,31 +107,19 @@ const peopleCommitments = [
   { icon: "payments", text: "Competitive compensation and benefits" },
 ];
 
-const supportingTestimonials = [
-  {
-    name: "Anika Phan",
-    role: "Head of Customer Operations, Alinta Energy",
-    initials: "AP",
-    quote:
-      "Glass Vision cut our average handle time by 38 seconds in the first month. The platform speaks energy out of the box \u2014 NMIs, embedded networks, life-support flags.",
-  },
-  {
-    name: "James Wong",
-    role: "Head of Technology, Energy Locals",
-    initials: "JW",
-    quote:
-      "We migrated 400k accounts to Tally in eight months. The team is responsive, pragmatic, and they actually understand the NEM.",
-  },
-  {
-    name: "Priya Sharma",
-    role: "GM Customer Operations, Momentum Energy",
-    initials: "PS",
-    quote:
-      "Tally took our billing from a constant headache to a quiet utility. We\u2019ve never trusted a vendor more with our customer data.",
-  },
-];
-
 const leaders = [
+  {
+    name: "Andrew Duncan",
+    role: "Chief Executive Officer",
+    bio: "Andrew is the Founder and Chairman of Tally and was appointed CEO in 2022 following the merger that formed Tally Group. With more than 30 years of experience in the Australian energy market, he has played a key role in driving technology-led transformation across the retail energy sector. Andrew founded Serviceworks and led its successful sale to Computershare in 2011, establishing the first BPO service provider for Australia\u2019s deregulated energy market. A recognized founder and investor, he brings deep industry expertise and a practical, execution-focused leadership style, with a strong emphasis on simplifying operations and improving customer outcomes.",
+    photoSrc: "/corporate/Andrew.jpg",
+  },
+  {
+    name: "Travis Lehman",
+    role: "Chief Operating Officer",
+    bio: "Travis joined Agility CIS in 2019 as Transformation Director, leading the Value Creation Program including M&A through a pivotal period of growth and integration. With experience spanning strategy, transactions, and execution, he specializes in scaling technology businesses in complex global markets. Prior to Tally, Travis spent about a decade with Deloitte Consulting in the M&A practice in San Francisco and holds an MBA from Stanford Graduate School of Business. He brings a calm, solutions-focused approach, translating strategy into disciplined execution to drive sustainable growth.",
+    photoSrc: "/corporate/Travis Lehman.jpg",
+  },
   {
     name: "Peter Weigand",
     role: "Chief Growth Officer",
@@ -114,21 +127,9 @@ const leaders = [
     photoSrc: "/us/Peter Weigand.jpg",
   },
   {
-    name: "Andrew Duncan",
-    role: "Chief Executive Officer",
-    bio: "Andrew is the Founder and Chairman of Tally and was appointed CEO in 2022 following the merger that formed Tally Group. With more than 30 years\u2019 experience in the Australian energy market, he has played a key role in driving technology-led transformation across retail energy. Andrew founded Serviceworks and led its successful sale to Computershare in 2011, establishing the first bureau provider for Australia\u2019s deregulated energy market. A recognised founder and investor, he brings deep industry insight and a pragmatic, execution-focused approach, driven by a founder\u2019s mindset and a focus on simplifying operations and improving customer outcomes.",
-    photoSrc: "/corporate/Andrew.jpg",
-  },
-  {
-    name: "Travis Lehman",
-    role: "Chief Operating Officer",
-    bio: "Travis joined Agility CIS in 2019 as Transformation Director, leading the Value Creation Programme including M&A through a pivotal period of growth and integration. With experience spanning strategy, transactions and execution, he specialises in scaling technology businesses in complex global markets. Prior to Tally, Travis spent about a decade with Deloitte Consulting in the M&A practice in San Francisco and holds an MBA from Stanford Graduate School of Business. He brings a calm, solutions-focused approach, translating strategy into disciplined execution to drive sustainable growth.",
-    photoSrc: "/corporate/Travis Lehman.jpg",
-  },
-  {
     name: "Eric Yilmaz",
     role: "Chief Technology Officer",
-    bio: "Eric joined Tally in 2023, bringing more than 20 years\u2019 experience across technology strategy, digital platforms, infrastructure, operations and product development. Prior to Tally, he was CTO at Sorted and held senior innovation and technology roles at EY, working at the intersection of emerging technology and enterprise scale. He leads Tally\u2019s global technology function with a focus on modern engineering, cloud architecture and applied AI, driving quality, security and speed to value. Eric is deeply focused on building high-performing teams and future-ready platforms.",
+    bio: "Eric joined Tally in 2023, bringing more than 20 years of experience across technology strategy, digital platforms, infrastructure, operations, and product development. Prior to joining Tally, he served as CTO at Sorted and held senior innovation and technology leadership roles at EY, working at the intersection of emerging technologies and enterprise-scale transformation. He leads Tally\u2019s global technology organization, focusing on modern engineering, cloud architecture, and applied AI to drive quality, security, and speed to value. Eric is focused on building high-performing teams and scalable, future-ready platforms.",
     photoSrc: "/corporate/Eric Yilmaz.jpg",
   },
   {
@@ -136,12 +137,6 @@ const leaders = [
     role: "Delivery Lead",
     bio: "Raine joined Tally as U.S. Delivery Lead in 2023, bringing more than 20 years\u2019 experience across global program, project and portfolio delivery. She has led large-scale technology and transformation initiatives at organisations including Amazon Web Services, Capital One, Microsoft and Verizon, with a strong focus on execution, stakeholder alignment and customer outcomes. Raine is known for building high-performing teams and fostering a collaborative, growth-focused culture, with a leadership style grounded in trust, mentorship and delivery excellence.",
     photoSrc: "/us/Raine Figaro.jpg",
-  },
-  {
-    name: "Atsuyo Miller",
-    role: "Director of Marketing",
-    bio: "Atsuyo joined Tally in 2026 as Director of Marketing for the U.S. and Japan, bringing extensive experience across global energy and technology markets. She has held senior marketing roles in both consulting and enterprise environments, including leadership positions across Fortune Global 500 organisations such as Microsoft and Toshiba. She specialises in building cross-cultural, high-impact marketing strategies that support growth and market expansion.",
-    photoSrc: "/us/Atsuyo Miller.jpg",
   },
   {
     name: "Chris Bates",
@@ -152,11 +147,6 @@ const leaders = [
   {
     name: "TBD",
     role: "Sales Manager",
-    bio: "Bio coming soon.",
-  },
-  {
-    name: "TBD",
-    role: "Sales & Marketing Coordinator",
     bio: "Bio coming soon.",
   },
 ];
@@ -210,44 +200,14 @@ export default function AboutPage() {
         showDivider={false}
         eyebrow="History"
         heading="A journey of innovation and growth."
-        lead={"Defined by continuous transformation, Tally Group brings together leading platforms, deep industry expertise and global capability to support utilities through rapid change. From our origins in complex energy markets, we\u2019ve evolved into a trusted partner delivering the technology that underpins modern utility operations."}
+        lead={usHistoryLead}
         entries={[
-          {
-            year: "2018",
-            title: "Tally founded",
-            description:
-              "Tally is founded by Australian market experts to challenge legacy providers, introducing a cloud-native, customer-centric billing and digital platform designed to reduce cost-to-serve and improve customer experience.",
-          },
-          {
-            year: "2020",
-            title: "Global expansion",
-            description:
-              "New Zealand-based Agility CIS acquires Znalytics and Webtools, establishing advanced analytics, digital and customer engagement capability while expanding into the U.S. and Japan.",
-          },
-          {
-            year: "2021",
-            title: "Tally Group is formed",
-            description:
-              "The merger of Agility and Tally forms Tally Group, combining leading cloud-native billing platforms with deep expertise in complex C&I and large-scale mass market implementations.",
-          },
-          {
-            year: "2023",
-            title: "Strategic investment",
-            description:
-              "Tally secures significant backing from IFM Investors and the Clean Energy Finance Corporation, unlocking capital to accelerate global growth, platform innovation and the transition to more sustainable energy systems. This backing accelerates Tally\u2019s long-term position in the utilities sector.",
-          },
-          {
-            year: "2024",
-            title: "Alinta CORE platform",
-            description:
-              "Tally acquires the CORE platform from top tier Australian energy retailer, Alinta Energy, significantly expanding mass market capability with a proven platform supporting 700k+ customers and C&I segments, cementing Tally\u2019s position as a leading global utility technology provider.",
-          },
-          {
-            year: "2026",
-            title: "Skipping Stone acquisition",
-            description:
-              "Tally Group acquires Skipping Stone, expanding advisory and consulting capability in energy transition, strategy and market advisory across the U.S. and Japan. Tally Group now supports over 5 million meters globally across 50+ utility clients, and growing.",
-          },
+          { year: "2018", title: "Tally founded" },
+          { year: "2020", title: "Global expansion" },
+          { year: "2021", title: "Tally Group is formed" },
+          { year: "2023", title: "Strategic investment" },
+          { year: "2024", title: "Alinta CORE platform" },
+          { year: "2026", title: "Skipping Stone acquisition" },
         ]}
       />
 
@@ -291,13 +251,13 @@ export default function AboutPage() {
           <div className="mb-[48px] max-w-[720px]">
             <div className="text-xs font-medium text-fg2 uppercase tracking-[0.1em] mb-[12px] inline-flex items-center gap-2">
               <span className="w-[18px] h-[1px] bg-turquoise inline-block" />
-              Tally Group Leadership
+              U.S. Leadership
             </div>
             <h2 className="text-[30px] lg:text-[60px] font-light leading-[1.1] tracking-[-0.02em] text-navy">
-              Experienced leaders in utility transformation.
+              Leaders shaping growth and delivery of Tally+ across the United States
             </h2>
             <p className="mt-[16px] text-sm leading-[1.55] text-fg2 m-0 max-w-[60ch]">
-              Driving the transition to smarter utilities backed by deep expertise, global scale and proven execution.
+              Bringing together deep industry expertise and a shared commitment to growth, innovation, and execution at scale.
             </p>
           </div>
 
@@ -309,72 +269,6 @@ export default function AboutPage() {
                 photoSrc={leader.photoSrc}
               />
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonial */}
-      <section className="py-[96px]">
-        <div className="max-w-[1240px] mx-auto px-8">
-          <div className="max-w-[720px] mb-[48px]">
-            <div className="text-xs font-medium text-fg2 uppercase tracking-[0.1em] mb-[12px] inline-flex items-center gap-2">
-              <span className="w-[18px] h-[1px] bg-turquoise inline-block" />
-              What our partners say
-            </div>
-            <h2 className="text-[30px] lg:text-[60px] font-light leading-[1.1] tracking-[-0.02em] text-navy">
-              Trusted by those who matter.
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-[1.15fr_1fr] gap-[20px] items-stretch">
-            <div className="bg-bg2 rounded-xl p-[32px] lg:p-[40px] flex flex-col gap-[24px]">
-              <blockquote className="m-0 p-0 text-[20px] lg:text-[26px] leading-[1.4] text-fg1 tracking-[-0.005em] font-medium">
-                <span className="text-turquoise text-[48px] font-bold leading-none block mb-3">&ldquo;</span>
-                They make the complex simple and helped us achieve better business outcomes.
-              </blockquote>
-              <div className="flex items-center gap-[14px] mt-auto">
-                <div className="w-11 h-11 rounded-full text-white text-sm font-semibold grid place-items-center" style={{
-                  background: "linear-gradient(135deg, #2C365D, #1E2840)"
-                }}>
-                  DH
-                </div>
-                <div>
-                  <div className="text-sm font-semibold text-fg1">David Hayes</div>
-                  <div className="text-[13px] text-fg2">CEO, Next Business Energy</div>
-                </div>
-              </div>
-            </div>
-
-            <div className="flex flex-col gap-[20px]">
-              {supportingTestimonials.map((t) => (
-                <div
-                  key={t.name}
-                  className="bg-bg2 rounded-xl p-[24px] lg:p-[28px] flex flex-col gap-[16px] flex-1"
-                >
-                  <blockquote className="m-0 p-0 text-[15px] leading-[1.55] text-fg1 font-medium">
-                    <span className="text-turquoise text-[28px] font-bold leading-none block mb-1">&ldquo;</span>
-                    {t.quote}
-                  </blockquote>
-                  <div className="flex items-center gap-[12px] mt-auto">
-                    <div
-                      className="w-9 h-9 rounded-full grid place-items-center text-white text-[11px] font-semibold shrink-0"
-                      style={{
-                        background:
-                          "linear-gradient(135deg, #2C365D, #1E2840)",
-                      }}
-                    >
-                      {t.initials}
-                    </div>
-                    <div>
-                      <div className="text-[13px] font-semibold text-fg1">
-                        {t.name}
-                      </div>
-                      <div className="text-[12px] text-fg2">{t.role}</div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
           </div>
         </div>
       </section>

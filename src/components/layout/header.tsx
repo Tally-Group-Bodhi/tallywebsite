@@ -84,7 +84,6 @@ function buildUSNavLinks(href: (path: string) => string): NavLink[] {
       children: [
         { href: href("/technology/architecture"), label: "Architecture" },
         { href: href("/technology/security"), label: "Security" },
-        { href: href("/technology/audit"), label: "Audit" },
         { href: href("/technology/api-library"), label: "API Library" },
       ],
     },
@@ -113,15 +112,6 @@ function buildUSNavLinks(href: (path: string) => string): NavLink[] {
         { href: href("/about#history"), label: "Our history" },
         { href: href("/about#leadership"), label: "Leadership" },
         { href: href("/about#mission-values"), label: "Mission and values" },
-      ],
-    },
-    {
-      href: href("/careers"),
-      label: "Careers",
-      hasMenu: true,
-      children: [
-        { href: href("/careers#culture"), label: "Life at Tally" },
-        { href: href("/careers#positions"), label: "Open positions" },
       ],
     },
     { href: href("/contact"), label: "Contact" },
