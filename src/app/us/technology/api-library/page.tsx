@@ -17,15 +17,15 @@ export const metadata: Metadata = {
 const docItems = [
   {
     strong: "Authentication",
-    text: "OAuth2 / bearer tokens aligned to your IdP federation; service-to-service credentials for batch and integration hosts.",
+    text: "OAuth2 / bearer tokens aligned with your IdP federation; service-to-service credentials for batch and integration hosts.",
   },
   {
-    strong: "Error model",
+    strong: "Error Model",
     text: "HTTP status codes with machine-readable problem details for validation failures, conflicts, and idempotency replays.",
   },
   {
     strong: "Limits",
-    text: "documented rate limits and burst behavior; bulk endpoints favor asynchronous completion where payloads are large (for example MDM interval backfills).",
+    text: "Documented rate limits and burst behavior; bulk endpoints favor asynchronous completion where payloads are large (for example, MDM interval backfills).",
   },
 ];
 
@@ -58,13 +58,13 @@ export default function USApiLibraryPage() {
 
       <TechIntroBand
         eyebrow="Integration platform"
-        heading="Integration-enabled platform"
+        heading="Integration-Enabled Platform"
         paragraphs={[
           <>
             Tally+ follows enterprise integration patterns: <strong>REST APIs</strong> for
             synchronous operations, <strong>events</strong> for intra-platform notifications, and{" "}
             <strong>webhooks</strong> where external systems must react to lifecycle changes—
-            supporting the &ldquo;highly scalable and easy to integrate&rdquo; posture described
+            supporting the &ldquo;highly scalable and easy-to-integrate&rdquo; posture described
             for retail deployments.
           </>,
         ]}
@@ -75,7 +75,7 @@ export default function USApiLibraryPage() {
         id="api-docs-heading"
         eyebrow="Documentation"
         heading="Documentation & lifecycle"
-        lede="Product references are published in OpenAPI-compatible form where surfaces are stable enough for external consumption; internal-only modules may ship partner-specific bundles under NDA. Versioning, deprecation windows, and changelog entries follow semantic conventions so integrators can plan upgrades alongside Tally release trains."
+        lede="Product references are published in OpenAPI-compatible form where interfaces are stable enough for external consumption; internal-only modules may ship partner-specific bundles under NDA. Versioning, deprecation windows, and changelog entries follow semantic conventions so integrators can plan upgrades alongside Tally release schedules."
       >
         <TechBulletList items={docItems} />
       </TechSection>
