@@ -177,7 +177,7 @@ export default function AboutPage() {
               <span className="w-[18px] h-[1px] bg-turquoise inline-block" />
               Who we are
             </div>
-            <h2 className="text-[30px] lg:text-[60px] font-light leading-[1.1] tracking-[-0.02em] text-navy">
+            <h2 className="text-[30px] lg:text-[48px] font-light leading-[1.15] tracking-[-0.02em] text-navy">
               Proven transformation partners for leading utilities.
             </h2>
           </div>
@@ -198,6 +198,7 @@ export default function AboutPage() {
       {/* History Timeline */}
       <HistoryTimeline
         showDivider={false}
+        compact
         eyebrow="History"
         heading="A journey of innovation and growth."
         lead={usHistoryLead}
@@ -219,7 +220,7 @@ export default function AboutPage() {
               <span className="w-[18px] h-[1px] bg-turquoise inline-block" />
               Unparalleled breadth of experience
             </div>
-            <h2 className="text-[30px] lg:text-[60px] font-light leading-[1.1] tracking-[-0.02em] text-navy">
+            <h2 className="text-[30px] lg:text-[48px] font-light leading-[1.15] tracking-[-0.02em] text-navy">
               Proven expertise in complex utility ecosystems.
             </h2>
           </div>
@@ -253,7 +254,7 @@ export default function AboutPage() {
               <span className="w-[18px] h-[1px] bg-turquoise inline-block" />
               U.S. Leadership
             </div>
-            <h2 className="text-[30px] lg:text-[60px] font-light leading-[1.1] tracking-[-0.02em] text-navy">
+            <h2 className="text-[30px] lg:text-[48px] font-light leading-[1.15] tracking-[-0.02em] text-navy">
               Leaders shaping growth and delivery of Tally+ across the United States
             </h2>
             <p className="mt-[16px] text-sm leading-[1.55] text-fg2 m-0 max-w-[60ch]">
@@ -283,7 +284,7 @@ export default function AboutPage() {
               <span className="w-[18px] h-[1px] bg-turquoise inline-block" />
               Mission & Values
             </div>
-            <h2 className="text-[30px] lg:text-[60px] font-light leading-[1.1] tracking-[-0.02em] text-navy">
+            <h2 className="text-[30px] lg:text-[48px] font-light leading-[1.15] tracking-[-0.02em] text-navy">
               Committed to our clients, the customers they serve, and our employees.
             </h2>
             <p className="mt-[20px] text-[17px] leading-[1.7] text-fg2 m-0 max-w-[68ch]">

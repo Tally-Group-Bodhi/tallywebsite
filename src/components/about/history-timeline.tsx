@@ -61,6 +61,8 @@ type HistoryTimelineProps = {
   scrollLeftLabel?: string;
   scrollRightLabel?: string;
   showDivider?: boolean;
+  /** Tighter horizontal spacing between year markers (e.g. title-only entries). */
+  compact?: boolean;
 };
 
 export function HistoryTimeline({
@@ -71,11 +73,15 @@ export function HistoryTimeline({
   scrollLeftLabel = "Scroll timeline left",
   scrollRightLabel = "Scroll timeline right",
   showDivider = true,
+  compact = false,
 }: HistoryTimelineProps = {}) {
   const timeline = entries;
   const scrollRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
+  const itemWidth = compact ? 176 : 320;
+  const itemGap = compact ? 12 : 24;
+  const scrollStep = itemWidth + itemGap;
 
   const updateScrollState = useCallback(() => {
     const el = scrollRef.current;
@@ -100,9 +106,8 @@ export function HistoryTimeline({
   const scrollBy = (direction: "left" | "right") => {
     const el = scrollRef.current;
     if (!el) return;
-    const step = 344;
     el.scrollBy({
-      left: direction === "left" ? -step : step,
+      left: direction === "left" ? -scrollStep : scrollStep,
       behavior: "smooth",
     });
   };
@@ -177,8 +182,9 @@ export function HistoryTimeline({
           }}
         >
           <div
-            className="relative inline-flex gap-[24px] pr-8"
+            className="relative inline-flex pr-8"
             style={{
+              gap: `${itemGap}px`,
               paddingLeft:
                 "max(2rem, calc((100vw - 1240px) / 2 + 2rem))",
             }}
@@ -186,23 +192,43 @@ export function HistoryTimeline({
             {timeline.map((item, index) => (
               <article
                 key={item.year}
-                className="relative min-w-[320px] max-w-[320px] snap-start"
+                className="relative snap-start"
+                style={{
+                  minWidth: `${itemWidth}px`,
+                  maxWidth: `${itemWidth}px`,
+                }}
               >
                 {index < timeline.length - 1 && (
                   <div
                     aria-hidden
                     className="absolute h-[2px] bg-stroke1 pointer-events-none"
-                    style={{ top: "11px", left: "6px", width: "344px" }}
+                    style={{
+                      top: "11px",
+                      left: "6px",
+                      width: `${scrollStep}px`,
+                    }}
                   />
                 )}
                 <div className="relative h-6 flex items-center mb-[20px]">
                   <span className="w-3 h-3 rounded-full bg-white border-2 border-turquoise relative z-10 shadow-[0_0_0_4px_white]" />
                 </div>
-                <div className="text-[40px] lg:text-[44px] font-light leading-none tracking-[-0.02em] text-turquoise mb-[14px]">
+                <div
+                  className={`font-light leading-none tracking-[-0.02em] text-turquoise mb-[14px] ${
+                    compact
+                      ? "text-[32px] lg:text-[36px]"
+                      : "text-[40px] lg:text-[44px]"
+                  }`}
+                >
                   {item.year}
                 </div>
                 {item.title && (
-                  <h3 className="text-[17px] font-semibold text-navy mb-[10px] tracking-tight leading-snug">
+                  <h3
+                    className={`font-semibold text-navy tracking-tight leading-snug ${
+                      compact
+                        ? "text-[15px] mb-[0px]"
+                        : "text-[17px] mb-[10px]"
+                    }`}
+                  >
                     {item.title}
                   </h3>
                 )}
