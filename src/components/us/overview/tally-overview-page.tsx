@@ -64,7 +64,7 @@ function ModuleSections() {
           >
             <h2
               id={`${module.id}-heading`}
-              className="text-[28px] sm:text-[36px] lg:text-[44px] font-light leading-[1.2] tracking-[-0.02em] text-navy m-0"
+              className="text-[30px] lg:text-[40px] font-light leading-[1.25] tracking-[-0.02em] text-navy m-0"
             >
               {module.title}
             </h2>
