@@ -22,18 +22,167 @@ const regions = [
 
 type NavChild = { href: string; label: string };
 type NavChildSection = { title: string; items: NavChild[] };
+type MegaNavItem = {
+  href: string;
+  label: string;
+  description: string;
+  icon: string;
+};
+type MegaNavCategory = {
+  id: string;
+  label: string;
+  tagline?: string;
+  items: MegaNavItem[];
+};
+type MegaNavFeatured = {
+  badge: string;
+  title: string;
+  description?: string;
+  ctaLabel: string;
+  href: string;
+};
+type MegaMenu = {
+  categories: MegaNavCategory[];
+  featured?: MegaNavFeatured;
+};
 type NavLink = {
   href?: string;
   label: string;
   hasMenu?: boolean;
   children?: NavChild[];
   childSections?: NavChildSection[];
+  megaMenu?: MegaMenu;
 };
 
 function buildNavLinks(href: (path: string) => string): NavLink[] {
   return [
     { href: href("/"), label: "Home" },
-    { href: href("/#platform"), label: "Products", hasMenu: true },
+    {
+      label: "Solutions",
+      hasMenu: true,
+      megaMenu: {
+        categories: [
+          {
+            id: "platform",
+            label: "Platform",
+            tagline: "The core Tally+ products that run your retail operation.",
+            items: [
+              {
+                href: href("/products/product-page/1"),
+                label: "Tally Billing",
+                description:
+                  "Multi-utility SaaS billing that is flexible, quick to deploy and infinitely scalable.",
+                icon: "receipt_long",
+              },
+              {
+                href: href("/products/acquire"),
+                label: "Tally Acquire",
+                description:
+                  "Launch new products and sales channels, and manage rates and offers from one place.",
+                icon: "campaign",
+              },
+              {
+                href: href("/products/digital"),
+                label: "Tally Digital",
+                description:
+                  "Digitise customer journeys with a complete digital self-service product suite.",
+                icon: "devices",
+              },
+              {
+                href: href("/products/customer"),
+                label: "Tally Customer",
+                description:
+                  "Front and back office operations that support better customer experiences.",
+                icon: "support_agent",
+              },
+              {
+                href: href("/products/dss"),
+                label: "Digital Self Service",
+                description:
+                  "Web and mobile tools that let customers manage accounts, payments and insights.",
+                icon: "smartphone",
+              },
+            ],
+          },
+          {
+            id: "explore",
+            label: "Explore",
+            tagline: "Templates and starter pages for new product stories.",
+            items: [
+              {
+                href: href("/products/product-page/2"),
+                label: "Product page 2",
+                description: "A starter product layout ready for your next solution story.",
+                icon: "dashboard",
+              },
+              {
+                href: href("/products/product-page/3"),
+                label: "Product page 3",
+                description: "Reuse this template to publish another product experience.",
+                icon: "view_quilt",
+              },
+              {
+                href: href("/products/product-page/4"),
+                label: "Product page 4",
+                description: "Extend the product family with another configurable page.",
+                icon: "widgets",
+              },
+              {
+                href: href("/products/product-page/5"),
+                label: "Product page 5",
+                description: "A placeholder page for upcoming product content.",
+                icon: "auto_awesome",
+              },
+              {
+                href: href("/products/template"),
+                label: "Template",
+                description: "The base product page template used across Solutions.",
+                icon: "design_services",
+              },
+            ],
+          },
+          {
+            id: "capabilities",
+            label: "Capabilities",
+            tagline: "What the platform helps your teams achieve.",
+            items: [
+              {
+                href: href("/products/billing"),
+                label: "Utility billing",
+                description: "Accurate, scalable billing across C&I, residential and new energy.",
+                icon: "payments",
+              },
+              {
+                href: href("/products/digital"),
+                label: "Customer engagement",
+                description: "Keep customers informed with portals, apps and personalised insights.",
+                icon: "favorite",
+              },
+              {
+                href: href("/products/acquire"),
+                label: "Sales & onboarding",
+                description: "Acquire and onboard customers faster with configurable journeys.",
+                icon: "rocket_launch",
+              },
+              {
+                href: href("/products/dss"),
+                label: "Self-service automation",
+                description: "Reduce cost to serve with always-on digital account management.",
+                icon: "bolt",
+              },
+            ],
+          },
+        ],
+        featured: {
+          badge: "Insight",
+          title: "Reducing cost to serve at scale",
+          description:
+            "See how modern billing and automation cut operational overhead for energy retailers.",
+          ctaLabel: "Read the guide",
+          href: href("/blog"),
+        },
+      },
+    },
     {
       href: href("/about"),
       label: "About",
@@ -59,21 +208,7 @@ function buildUSNavLinks(href: (path: string) => string): NavLink[] {
       childSections: [
         {
           title: "Platform",
-          items: [
-            { href: "#", label: "Tally+ Customer Mgmt" },
-            { href: "#", label: "Tally Glass (AI)" },
-          ],
-        },
-        {
-          title: "By Focus Area",
-          items: [
-            { href: "#", label: "Electricity" },
-            { href: "#", label: "Gas" },
-            { href: "#", label: "Renewables" },
-            { href: "#", label: "EV" },
-            { href: "#", label: "BESS" },
-            { href: "#", label: "DER" },
-          ],
+          items: [{ href: href("/overview"), label: "Tally+" }],
         },
       ],
     },
@@ -314,8 +449,9 @@ export function Header() {
               const isActive = Boolean(link.href && pathname === link.href);
 
 
-              if (link.children || link.childSections) {
+              if (link.children || link.childSections || link.megaMenu) {
                 const triggerClass = `${navLinkClassName(isActive)} py-[18px]`;
+                const isMega = Boolean(link.megaMenu);
                 return (
                   <div
                     key={link.label}
@@ -357,18 +493,33 @@ export function Header() {
                       </button>
                     )}
                     {isOpen && (
-                      <div className="absolute top-full left-0 pt-2 z-50">
+                      <div
+                        className={`absolute top-full pt-2 z-50 ${
+                          isMega ? "left-0 -translate-x-[12%]" : "left-0"
+                        }`}
+                      >
                         <div
-                          className={`bg-white border border-stroke1 rounded-xl shadow-[0_8px_24px_rgba(0,0,0,0.1)] ${
-                            link.childSections ? "w-[420px] p-4" : "w-[240px] py-1.5"
-                          }`}
+                          className={
+                            isMega
+                              ? "w-[min(1040px,calc(100vw-2rem))] bg-white border border-stroke1 rounded-2xl shadow-[0_16px_48px_rgba(0,0,0,0.12)] overflow-hidden"
+                              : link.childSections
+                                ? "w-[420px] p-4 bg-white border border-stroke1 rounded-xl shadow-[0_8px_24px_rgba(0,0,0,0.1)]"
+                                : "w-[240px] py-1.5 bg-white border border-stroke1 rounded-xl shadow-[0_8px_24px_rgba(0,0,0,0.1)]"
+                          }
                           role="menu"
                         >
-                          <NavDropdownItems
-                            children={link.children}
-                            childSections={link.childSections}
-                            onNavigate={() => setOpenMenu(null)}
-                          />
+                          {link.megaMenu ? (
+                            <SolutionsMegaMenu
+                              megaMenu={link.megaMenu}
+                              onNavigate={() => setOpenMenu(null)}
+                            />
+                          ) : (
+                            <NavDropdownItems
+                              children={link.children}
+                              childSections={link.childSections}
+                              onNavigate={() => setOpenMenu(null)}
+                            />
+                          )}
                         </div>
                       </div>
                     )}
@@ -493,7 +644,11 @@ export function Header() {
             <div className="flex flex-col">
               {navLinks.map((link) => {
                 const isActive = Boolean(link.href && pathname === link.href);
-                const hasSubnav = Boolean(link.children?.length || link.childSections?.length);
+                const hasSubnav = Boolean(
+                  link.children?.length ||
+                    link.childSections?.length ||
+                    link.megaMenu?.categories.length,
+                );
 
                 if (hasSubnav) {
                   return (
@@ -505,12 +660,19 @@ export function Header() {
                         setMobileDropdown((prev) => (prev === link.label ? null : link.label))
                       }
                     >
-                      <NavDropdownItems
-                        children={link.children}
-                        childSections={link.childSections}
-                        onNavigate={closeMobile}
-                        variant="mobile"
-                      />
+                      {link.megaMenu ? (
+                        <MobileSolutionsMegaMenu
+                          megaMenu={link.megaMenu}
+                          onNavigate={closeMobile}
+                        />
+                      ) : (
+                        <NavDropdownItems
+                          children={link.children}
+                          childSections={link.childSections}
+                          onNavigate={closeMobile}
+                          variant="mobile"
+                        />
+                      )}
                     </MobileNavAccordion>
                   );
                 }
@@ -596,6 +758,197 @@ export function Header() {
           </nav>
         )}
       </header>
+    </div>
+  );
+}
+
+function SolutionsMegaMenu({
+  megaMenu,
+  onNavigate,
+}: {
+  megaMenu: MegaMenu;
+  onNavigate: () => void;
+}) {
+  const [activeId, setActiveId] = useState(megaMenu.categories[0]?.id ?? "");
+  const activeCategory =
+    megaMenu.categories.find((category) => category.id === activeId) ??
+    megaMenu.categories[0];
+
+  return (
+    <div className="grid grid-cols-[248px_minmax(0,1fr)_284px]">
+      {/* Category rail */}
+      <div className="bg-bg2 p-4 flex flex-col">
+        <div className="flex flex-col gap-1">
+          {megaMenu.categories.map((category) => {
+            const isActive = category.id === activeCategory?.id;
+            return (
+              <button
+                key={category.id}
+                type="button"
+                onMouseEnter={() => setActiveId(category.id)}
+                onFocus={() => setActiveId(category.id)}
+                aria-current={isActive}
+                className={`w-full flex items-center rounded-lg px-3 py-2.5 text-left text-[14px] transition-colors duration-150 ${
+                  isActive
+                    ? "bg-bg3 text-navy font-semibold"
+                    : "text-fg1 hover:bg-bg3/60"
+                }`}
+              >
+                {category.label}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Active category items */}
+      <div className="p-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-0.5">
+          {(activeCategory?.items ?? []).map((item) => (
+            <Link
+              key={item.label}
+              href={item.href}
+              role="menuitem"
+              onClick={onNavigate}
+              className="group relative flex items-start gap-3.5 rounded-xl px-3 py-3 transition-colors duration-150 hover:bg-bg2"
+            >
+              <span className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-bg3 text-navy transition-colors duration-150 group-hover:bg-navy group-hover:text-white">
+                <span className="material-symbols-outlined text-[20px]">{item.icon}</span>
+              </span>
+              <span className="min-w-0 flex-1">
+                <span className="flex items-center gap-1 text-[14px] font-semibold text-fg1 transition-colors group-hover:text-navy">
+                  {item.label}
+                  <span
+                    className="material-symbols-outlined text-[15px] text-turquoise opacity-0 -translate-x-1 transition-all duration-150 group-hover:opacity-100 group-hover:translate-x-0"
+                    aria-hidden
+                  >
+                    arrow_forward
+                  </span>
+                </span>
+                <span className="mt-1 block text-[12.5px] leading-[1.5] text-fg2">
+                  {item.description}
+                </span>
+              </span>
+            </Link>
+          ))}
+        </div>
+      </div>
+
+      {/* Featured panel */}
+      {megaMenu.featured && (
+        <div className="p-4 flex">
+          <Link
+            href={megaMenu.featured.href}
+            onClick={onNavigate}
+            className="group relative flex h-full w-full flex-col overflow-hidden rounded-2xl p-6 text-white transition-transform duration-200"
+            style={{
+              background:
+                "radial-gradient(circle at 80% 0%, rgba(0,210,162,0.35), transparent 55%), linear-gradient(155deg, #2C365D 0%, #1E2840 100%)",
+            }}
+          >
+            <span className="inline-flex w-fit items-center gap-1.5 rounded-full bg-white/10 px-2.5 py-1 text-[10.5px] font-semibold uppercase tracking-[0.1em] text-turquoise ring-1 ring-inset ring-white/15">
+              <span className="h-1.5 w-1.5 rounded-full bg-turquoise" aria-hidden />
+              {megaMenu.featured.badge}
+            </span>
+            <p className="mt-4 text-[19px] font-semibold leading-[1.25] tracking-[-0.02em] m-0">
+              {megaMenu.featured.title}
+            </p>
+            {megaMenu.featured.description && (
+              <p className="mt-2 text-[12.5px] leading-[1.55] text-white/70 m-0">
+                {megaMenu.featured.description}
+              </p>
+            )}
+            <span className="mt-auto pt-6 inline-flex items-center gap-1.5 text-[13px] font-semibold text-turquoise">
+              {megaMenu.featured.ctaLabel}
+              <span className="material-symbols-outlined text-[16px] transition-transform duration-150 group-hover:translate-x-1">
+                arrow_forward
+              </span>
+            </span>
+          </Link>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function MobileSolutionsMegaMenu({
+  megaMenu,
+  onNavigate,
+}: {
+  megaMenu: MegaMenu;
+  onNavigate: () => void;
+}) {
+  const [activeId, setActiveId] = useState(megaMenu.categories[0]?.id ?? "");
+  const activeCategory =
+    megaMenu.categories.find((category) => category.id === activeId) ??
+    megaMenu.categories[0];
+
+  return (
+    <div className="flex flex-col gap-3">
+      <div className="-mx-1 flex gap-1.5 overflow-x-auto px-1 pb-0.5 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+        {megaMenu.categories.map((category) => {
+          const isActive = category.id === activeCategory?.id;
+          return (
+            <button
+              key={category.id}
+              type="button"
+              onClick={() => setActiveId(category.id)}
+              className={`shrink-0 rounded-full px-3.5 py-1.5 text-[12px] font-semibold transition-colors ${
+                isActive
+                  ? "bg-navy text-white"
+                  : "bg-bg2 text-fg1 hover:bg-bg3"
+              }`}
+            >
+              {category.label}
+            </button>
+          );
+        })}
+      </div>
+
+      <div className="flex flex-col gap-0.5">
+        {(activeCategory?.items ?? []).map((item) => (
+          <Link
+            key={item.label}
+            href={item.href}
+            onClick={onNavigate}
+            className="flex items-start gap-3 rounded-lg px-1 py-2 active:bg-bg2"
+          >
+            <span className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-bg3 text-navy">
+              <span className="material-symbols-outlined text-[19px]">{item.icon}</span>
+            </span>
+            <span>
+              <span className="block text-[13px] font-semibold text-fg1">{item.label}</span>
+              <span className="mt-0.5 block text-[12px] leading-[1.45] text-fg2">
+                {item.description}
+              </span>
+            </span>
+          </Link>
+        ))}
+      </div>
+
+      {megaMenu.featured && (
+        <Link
+          href={megaMenu.featured.href}
+          onClick={onNavigate}
+          className="mt-1 flex flex-col overflow-hidden rounded-xl p-4 text-white"
+          style={{
+            background:
+              "radial-gradient(circle at 85% 0%, rgba(0,210,162,0.35), transparent 55%), linear-gradient(155deg, #2C365D 0%, #1E2840 100%)",
+          }}
+        >
+          <span className="inline-flex w-fit items-center gap-1.5 text-[10.5px] font-semibold uppercase tracking-[0.1em] text-turquoise">
+            <span className="h-1.5 w-1.5 rounded-full bg-turquoise" aria-hidden />
+            {megaMenu.featured.badge}
+          </span>
+          <span className="mt-2 block text-[14px] font-semibold leading-[1.3]">
+            {megaMenu.featured.title}
+          </span>
+          <span className="mt-2 inline-flex items-center gap-1.5 text-[12.5px] font-semibold text-turquoise">
+            {megaMenu.featured.ctaLabel}
+            <span className="material-symbols-outlined text-[15px]">arrow_forward</span>
+          </span>
+        </Link>
+      )}
     </div>
   );
 }

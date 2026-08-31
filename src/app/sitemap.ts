@@ -15,6 +15,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/products/customer",
     "/products/acquire",
     "/products/acquire/uconx",
+    "/products/template",
+    "/products/product-page/1",
+    "/products/product-page/2",
+    "/products/product-page/3",
+    "/products/product-page/4",
+    "/products/product-page/5",
   ];
 
   const aePages = ["", "/about", "/contact"];
@@ -22,6 +28,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticPages = [
     ...auPages,
     ...auPages.map((path) => (path === "" ? "/us" : `/us${path}`)),
+    "/us/overview",
     ...aePages.map((path) => (path === "" ? "/ae" : `/ae${path}`)),
     ...aePages.map((path) => (path === "" ? "/ae/en" : `/ae/en${path}`)),
   ];

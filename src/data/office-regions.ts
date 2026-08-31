@@ -109,7 +109,7 @@ export const officeRegions: OfficeRegion[] = [
         suburbAr: "ذا وودلاندز",
         statePostcode: "TX 77380",
         statePostcodeAr: "تكساس 77380",
-        email: "retailenergy@tally-group.com",
+        email: "contact_us@tally-group.com",
       },
     ],
   },

@@ -5,9 +5,10 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
-const inquiryTypes = ["demo", "sales", "general", "partner", "support"] as const;
-const companySizes = ["", "1-49", "50-249", "250-999", "1000+"] as const;
-const timelines = ["", "immediate", "3months", "exploring"] as const;
+/** Intended destination for US contact form submissions. */
+export const US_CONTACT_FORM_RECIPIENT = "contact_us@tally-group.com";
+
+const inquiryTypes = ["demo", "sales", "general", "partner"] as const;
 
 const schema = z
   .object({
@@ -16,64 +17,39 @@ const schema = z
     lastName: z.string().min(1, "Last name is required"),
     companyName: z.string().min(1, "Company name is required"),
     workEmail: z.string().email("Please enter a valid email"),
-    phone: z.string().optional(),
+    phone: z.string().min(1, "Phone number is required"),
     jobTitle: z.string().optional(),
-    companySize: z.enum(companySizes).optional(),
-    solutionTallyPlus: z.boolean().optional(),
-    solutionTallyGlass: z.boolean().optional(),
+    solutionOrderToCash: z.boolean().optional(),
+    solutionCustomerEngagement: z.boolean().optional(),
+    solutionTransitionProducts: z.boolean().optional(),
+    solutionSalesManagement: z.boolean().optional(),
     solutionOther: z.boolean().optional(),
     solutionOtherText: z.string().optional(),
-    timeline: z.enum(timelines).optional(),
-    productInUse: z.string().optional(),
-    issueDescription: z.string().optional(),
     message: z.string().optional(),
     consent: z.literal(true, {
       error: () => "Please agree to the Privacy Policy",
     }),
   })
   .superRefine((data, ctx) => {
-    const needsSolutions =
-      data.inquiryType === "demo" || data.inquiryType === "sales";
-    if (needsSolutions) {
-      const any =
-        data.solutionTallyPlus || data.solutionTallyGlass || data.solutionOther;
-      if (!any) {
-        ctx.addIssue({
-          code: "custom",
-          path: ["solutionTallyPlus"],
-          message: "Please select at least one solution.",
-        });
-      }
-      if (data.solutionOther && !data.solutionOtherText?.trim()) {
-        ctx.addIssue({
-          code: "custom",
-          path: ["solutionOtherText"],
-          message: "Please describe your solution or area.",
-        });
-      }
-      if (!data.timeline) {
-        ctx.addIssue({
-          code: "custom",
-          path: ["timeline"],
-          message: "Please select a timeline.",
-        });
-      }
+    const any =
+      data.solutionOrderToCash ||
+      data.solutionCustomerEngagement ||
+      data.solutionTransitionProducts ||
+      data.solutionSalesManagement ||
+      data.solutionOther;
+    if (!any) {
+      ctx.addIssue({
+        code: "custom",
+        path: ["solutionOrderToCash"],
+        message: "Please select at least one option.",
+      });
     }
-    if (data.inquiryType === "support") {
-      if (!data.productInUse?.trim()) {
-        ctx.addIssue({
-          code: "custom",
-          path: ["productInUse"],
-          message: "Please tell us which product you're using.",
-        });
-      }
-      if (!data.issueDescription?.trim()) {
-        ctx.addIssue({
-          code: "custom",
-          path: ["issueDescription"],
-          message: "Please describe the issue.",
-        });
-      }
+    if (data.solutionOther && !data.solutionOtherText?.trim()) {
+      ctx.addIssue({
+        code: "custom",
+        path: ["solutionOtherText"],
+        message: "Please add a comment when Other is selected.",
+      });
     }
   });
 
@@ -108,24 +84,18 @@ export function DemoContactForm() {
       workEmail: "",
       phone: "",
       jobTitle: "",
-      companySize: "",
-      solutionTallyPlus: false,
-      solutionTallyGlass: false,
+      solutionOrderToCash: false,
+      solutionCustomerEngagement: false,
+      solutionTransitionProducts: false,
+      solutionSalesManagement: false,
       solutionOther: false,
       solutionOtherText: "",
-      timeline: "",
-      productInUse: "",
-      issueDescription: "",
       message: "",
       consent: undefined as unknown as true,
     },
   });
 
-  const inquiryType = watch("inquiryType");
   const otherChecked = watch("solutionOther");
-
-  const showSalesDemo = inquiryType === "demo" || inquiryType === "sales";
-  const showSupport = inquiryType === "support";
 
   useEffect(() => {
     if (!otherChecked) {
@@ -134,7 +104,11 @@ export function DemoContactForm() {
   }, [otherChecked, setValue]);
 
   const onSubmit = async (data: FormData) => {
-    console.log("Demo contact form submitted:", data);
+    console.log(
+      "US contact form submitted (route to):",
+      US_CONTACT_FORM_RECIPIENT,
+      data,
+    );
     reset();
   };
 
@@ -167,7 +141,6 @@ export function DemoContactForm() {
           <option value="sales">Contact Sales</option>
           <option value="general">General Inquiry</option>
           <option value="partner">Partner Inquiry</option>
-          <option value="support">Support</option>
         </select>
         <p className="mt-1 text-xs text-fg2">
           Choose the option that best describes your inquiry.
@@ -245,7 +218,7 @@ export function DemoContactForm() {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-[16px]">
         <div>
           <label htmlFor="phone" className={labelClass}>
-            Phone number
+            Phone number{reqMark}
           </label>
           <input
             id="phone"
@@ -255,6 +228,9 @@ export function DemoContactForm() {
             className={inputClass}
             dir="ltr"
           />
+          {errors.phone && (
+            <p className={errorClass}>{errors.phone.message}</p>
+          )}
         </div>
         <div>
           <label htmlFor="job-title" className={labelClass}>
@@ -270,151 +246,86 @@ export function DemoContactForm() {
         </div>
       </div>
 
-      <div>
-        <label htmlFor="company-size" className={labelClass}>
-          Company size
-        </label>
-        <select
-          id="company-size"
-          {...register("companySize")}
-          className={selectClass}
-        >
-          <option value="">Select…</option>
-          <option value="1-49">1–49</option>
-          <option value="50-249">50–249</option>
-          <option value="250-999">250–999</option>
-          <option value="1000+">1,000+</option>
-        </select>
-      </div>
-
-      {showSalesDemo && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-[16px] items-start">
-          <fieldset className="min-w-0">
-            <legend className={labelClass}>
-              Solution(s)/Area(s) of Interest{reqMark}
-            </legend>
-            <div className="flex flex-col gap-[10px]">
-              <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
-                <label className="inline-flex items-center gap-2 text-sm text-fg1 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    {...register("solutionTallyPlus")}
-                    className="h-[18px] w-[18px] accent-navy"
-                  />
-                  <span>Tally+</span>
-                </label>
-                <label className="inline-flex items-center gap-2 text-sm text-fg1 cursor-pointer">
-                  <input
-                    type="checkbox"
-                    {...register("solutionTallyGlass")}
-                    className="h-[18px] w-[18px] accent-navy"
-                  />
-                  <span>Tally Glass</span>
-                </label>
-              </div>
-              <div className="flex flex-wrap items-start gap-x-3 gap-y-2 w-full">
-                <label className="inline-flex items-center gap-2 text-sm text-fg1 cursor-pointer pt-[6px]">
-                  <input
-                    type="checkbox"
-                    {...register("solutionOther")}
-                    className="h-[18px] w-[18px] accent-navy"
-                  />
-                  <span>Other</span>
-                </label>
-                {otherChecked && (
-                  <div className="flex-1 min-w-[12rem]">
-                    <label
-                      htmlFor="solution-other-text"
-                      className="sr-only"
-                    >
-                      Other — describe your solution or area
-                    </label>
-                    <textarea
-                      id="solution-other-text"
-                      rows={2}
-                      placeholder="Describe your solution or area…"
-                      {...register("solutionOtherText")}
-                      className={`${inputClass} resize-y min-h-[44px]`}
-                    />
-                  </div>
-                )}
-              </div>
-            </div>
-            <p className="mt-2 text-xs text-fg2">
-              Select all that apply. If you choose Other, add a comment in the
-              field beside it (required when Other is checked).
-            </p>
-            {errors.solutionTallyPlus && (
-              <p className={errorClass} role="alert">
-                {errors.solutionTallyPlus.message}
-              </p>
-            )}
-            {errors.solutionOtherText && (
-              <p className={errorClass} role="alert">
-                {errors.solutionOtherText.message}
-              </p>
-            )}
-          </fieldset>
-
-          <div>
-            <label htmlFor="timeline" className={labelClass}>
-              Implementation timeline{reqMark}
+      <fieldset className="min-w-0">
+        <legend className={labelClass}>
+          Solution(s)/Area(s) of Interest{reqMark}
+        </legend>
+        <p className="mb-[10px] text-xs text-fg2">Select all that apply.</p>
+        <div className="flex flex-col gap-[10px]">
+          <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
+            <label className="inline-flex items-center gap-2 text-sm text-fg1 cursor-pointer">
+              <input
+                type="checkbox"
+                {...register("solutionOrderToCash")}
+                className="h-[18px] w-[18px] accent-navy"
+              />
+              <span>Order to Cash</span>
             </label>
-            <select
-              id="timeline"
-              {...register("timeline")}
-              className={selectClass}
-              aria-describedby="timeline-hint"
-            >
-              <option value="">Select…</option>
-              <option value="immediate">Immediately</option>
-              <option value="3months">Within 3 months</option>
-              <option value="exploring">
-                Exploring / information gathering
-              </option>
-            </select>
-            <p id="timeline-hint" className="mt-1 text-xs text-fg2">
-              Helps us prioritize follow-up.
-            </p>
-            {errors.timeline && (
-              <p className={errorClass}>{errors.timeline.message}</p>
+            <label className="inline-flex items-center gap-2 text-sm text-fg1 cursor-pointer">
+              <input
+                type="checkbox"
+                {...register("solutionCustomerEngagement")}
+                className="h-[18px] w-[18px] accent-navy"
+              />
+              <span>Customer Engagement</span>
+            </label>
+            <label className="inline-flex items-center gap-2 text-sm text-fg1 cursor-pointer">
+              <input
+                type="checkbox"
+                {...register("solutionTransitionProducts")}
+                className="h-[18px] w-[18px] accent-navy"
+              />
+              <span>Transition Products</span>
+            </label>
+            <label className="inline-flex items-center gap-2 text-sm text-fg1 cursor-pointer">
+              <input
+                type="checkbox"
+                {...register("solutionSalesManagement")}
+                className="h-[18px] w-[18px] accent-navy"
+              />
+              <span>Sales Management</span>
+            </label>
+          </div>
+          <div className="flex flex-wrap items-start gap-x-3 gap-y-2 w-full">
+            <label className="inline-flex items-center gap-2 text-sm text-fg1 cursor-pointer pt-[6px]">
+              <input
+                type="checkbox"
+                {...register("solutionOther")}
+                className="h-[18px] w-[18px] accent-navy"
+              />
+              <span>Other</span>
+            </label>
+            {otherChecked && (
+              <div className="flex-1 min-w-[12rem]">
+                <label htmlFor="solution-other-text" className="sr-only">
+                  Other — add a comment
+                </label>
+                <textarea
+                  id="solution-other-text"
+                  rows={2}
+                  placeholder="Add a comment…"
+                  {...register("solutionOtherText")}
+                  className={`${inputClass} resize-y min-h-[44px]`}
+                />
+              </div>
             )}
           </div>
         </div>
-      )}
-
-      {showSupport && (
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-[16px]">
-          <div>
-            <label htmlFor="product-in-use" className={labelClass}>
-              Product in use{reqMark}
-            </label>
-            <input
-              id="product-in-use"
-              type="text"
-              {...register("productInUse")}
-              className={inputClass}
-            />
-            {errors.productInUse && (
-              <p className={errorClass}>{errors.productInUse.message}</p>
-            )}
-          </div>
-          <div>
-            <label htmlFor="issue-description" className={labelClass}>
-              Description of issue{reqMark}
-            </label>
-            <textarea
-              id="issue-description"
-              rows={3}
-              {...register("issueDescription")}
-              className={`${inputClass} resize-y min-h-[68px]`}
-            />
-            {errors.issueDescription && (
-              <p className={errorClass}>{errors.issueDescription.message}</p>
-            )}
-          </div>
-        </div>
-      )}
+        <p className="mt-2 text-xs text-fg2">
+          If you choose Other, add a comment in the field beside it (required
+          when Other is checked).
+        </p>
+        {errors.solutionOrderToCash && (
+          <p className={errorClass} role="alert">
+            {errors.solutionOrderToCash.message}
+          </p>
+        )}
+        {errors.solutionOtherText && (
+          <p className={errorClass} role="alert">
+            {errors.solutionOtherText.message}
+          </p>
+        )}
+      </fieldset>
 
       <h4 className={sectionTitleClass}>Message</h4>
 

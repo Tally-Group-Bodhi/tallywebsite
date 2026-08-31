@@ -11,6 +11,8 @@ export const metadata: Metadata = {
     "Get in touch with the Tally Group team. Book a demo, ask a question, or explore a partnership.",
 };
 
+const US_CONTACT_EMAIL = "contact_us@tally-group.com";
+
 const northAmericaOffices =
   officeRegions.find((region) => region.id === "north-america")?.offices ?? [];
 
@@ -19,8 +21,8 @@ const contactMethods = [
     icon: "mail",
     title: "Email us",
     description: "Our team will get back to you within 24 hours.",
-    detail: "enquiries@tally-group.com",
-    href: "mailto:enquiries@tally-group.com",
+    detail: US_CONTACT_EMAIL,
+    href: `mailto:${US_CONTACT_EMAIL}`,
   },
   {
     icon: "linkedin",
@@ -102,16 +104,15 @@ export default function ContactPage() {
           <div className="grid grid-cols-1 lg:grid-cols-[260px_minmax(0,1fr)] gap-[48px] lg:gap-[64px]">
             {/* Left - Offices */}
             <div>
-              <h3 className="text-lg font-semibold text-navy mb-[20px]">Our offices</h3>
               <div className="flex flex-col gap-[28px]">
                 {northAmericaOffices.map((office) => (
                   <div key={office.city}>
                     <OfficeAddressBlock office={office} />
                     <a
-                      href={`mailto:${office.email}`}
+                      href={`mailto:${US_CONTACT_EMAIL}`}
                       className="mt-3 block text-sm font-medium text-navy hover:text-turquoise transition-colors"
                     >
-                      {office.email}
+                      {US_CONTACT_EMAIL}
                     </a>
                   </div>
                 ))}
@@ -121,10 +122,11 @@ export default function ContactPage() {
             {/* Right - Form */}
             <div className="bg-white border border-stroke1 rounded-xl p-[32px] lg:p-[40px] h-fit">
               <h3 className="text-xl font-semibold text-navy mb-[8px]">
-                Contact us / Request a demo
+                Contact Us / Request a Demo
               </h3>
               <p className="text-sm text-fg2 mb-[24px] leading-[1.55]">
-                Share your contact details and one of our team members will reach out within 1–2 business days.
+                Fill out your contact information, a member of our team will
+                contact you within a few business days.
               </p>
               <DemoContactForm />
             </div>

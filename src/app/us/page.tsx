@@ -1,19 +1,22 @@
-import { HeroSection } from "@/components/home/hero-section";
-import { LogoCloudUS } from "@/components/home/us/logo-cloud-us";
-import { ValuePillarsSectionUS } from "@/components/home/us/value-pillars-section-us";
-import { StatsSection } from "@/components/home/stats-section";
-import { TestimonialsSectionUS } from "@/components/home/us/testimonials-section-us";
-import { ContactSectionUS } from "@/components/home/us/contact-section-us";
+import { HomeBetaQuadGridUS } from "@/components/home/us/home-beta-quad-grid";
+import { HighlightsSectionUS } from "@/components/home/us/highlights-section-us";
+import { MetricsSectionUS } from "@/components/home/us/metrics-section-us";
+import { LogoMarqueeUS } from "@/components/home/us/logo-marquee-us";
+import { USCtaSection } from "@/components/us/cta-section";
 
 export default function USHome() {
   return (
     <>
-      <HeroSection />
-      <LogoCloudUS />
-      <ValuePillarsSectionUS />
-      <StatsSection />
-      <TestimonialsSectionUS />
-      <ContactSectionUS />
+      <HomeBetaQuadGridUS />
+      <HighlightsSectionUS />
+      <MetricsSectionUS />
+      <LogoMarqueeUS />
+      <USCtaSection
+        title="Ready for a solution that fits today and tomorrow's marketplace?"
+        description="Even if you already have a back office solution, it's worth your time to see what a modern global solution looks like."
+        primaryLabel="Book a demo"
+        secondaryLabel="Contact us"
+      />
     </>
   );
 }
