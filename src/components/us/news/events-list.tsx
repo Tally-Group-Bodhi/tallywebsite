@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { MarketingLink } from "@/components/marketing/marketing-link";
 
@@ -15,6 +16,7 @@ export type EventItem = {
   external?: boolean;
   tone: 1 | 2 | 3 | 4;
   icon: string;
+  image?: string;
 };
 
 const MEDIA_TONES: Record<
@@ -139,22 +141,34 @@ function EventCard({ event }: { event: EventItem }) {
         className="relative aspect-[16/10] overflow-hidden"
         role="img"
         aria-label={`${event.title} image`}
-        style={{ background: tone.gradient }}
+        style={event.image ? { background: "#f8f9f4" } : { background: tone.gradient }}
       >
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{ background: tone.pattern }}
-          aria-hidden
-        />
-        <div className="absolute inset-0 grid place-items-center">
-          <span
-            className="material-symbols-outlined text-[96px]"
-            style={{ color: tone.iconColor }}
-            aria-hidden
-          >
-            {event.icon}
-          </span>
-        </div>
+        {event.image ? (
+          <Image
+            src={event.image}
+            alt=""
+            fill
+            className="object-contain scale-[1.2]"
+            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          />
+        ) : (
+          <>
+            <div
+              className="absolute inset-0 pointer-events-none"
+              style={{ background: tone.pattern }}
+              aria-hidden
+            />
+            <div className="absolute inset-0 grid place-items-center">
+              <span
+                className="material-symbols-outlined text-[96px]"
+                style={{ color: tone.iconColor }}
+                aria-hidden
+              >
+                {event.icon}
+              </span>
+            </div>
+          </>
+        )}
         <span className="absolute top-[12px] right-[12px] inline-flex items-center gap-1 px-[10px] py-[5px] rounded-full bg-black/55 text-white text-[11px] font-semibold uppercase tracking-[0.1em] backdrop-blur-sm">
           <span
             className="material-symbols-outlined text-[14px]"

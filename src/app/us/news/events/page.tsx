@@ -14,30 +14,18 @@ export const metadata: Metadata = {
 
 const events: EventItem[] = [
   {
-    slug: "distributech-2026",
-    date: "February 9–12, 2026",
-    dateISO: "2026-02-09",
-    title: "DISTRIBUTECH International 2026",
-    location: "Dallas, TX",
+    slug: "emc26",
+    date: "October 19–20, 2026",
+    dateISO: "2026-10-19",
+    title: "EMC26",
+    location: "Washington, DC",
     description:
-      "The premier annual transmission and distribution event covering smart grid, AMI, asset management, and customer engagement — bringing together utilities, vendors, and consultants across the U.S. energy ecosystem.",
-    href: "https://www.distributech.com/",
+      "North America's largest retail energy conference, bringing together energy suppliers, brokers, utilities, and technology providers for expert insights, regulatory updates, industry networking, and discussions on the future of competitive energy.",
+    href: "https://energymarketingconferences.com/",
     external: true,
     tone: 1,
     icon: "bolt",
-  },
-  {
-    slug: "cs-week-2026",
-    date: "May 4–7, 2026",
-    dateISO: "2026-05-04",
-    title: "CS Week 2026",
-    location: "Tampa, FL",
-    description:
-      "The largest customer-service and information-technology conference for the electric, gas, and water utility industries — focused on billing, customer experience, and operations.",
-    href: "https://www.csweek.org/",
-    external: true,
-    tone: 3,
-    icon: "hub",
+    image: "/events/emc26.png",
   },
 ];
 

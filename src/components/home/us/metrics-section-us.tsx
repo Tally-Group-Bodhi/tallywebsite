@@ -5,11 +5,11 @@ import { motion } from "framer-motion";
 const metrics: Array<{ value: string; label: string }> = [
   {
     value: "50+",
-    label: "Clients Worldwide",
+    label: "Clients",
   },
   {
     value: "5M+",
-    label: "Meter Points Served Globally",
+    label: "Meter Points Served",
   },
   {
     value: "$15B+",
