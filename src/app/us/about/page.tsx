@@ -36,48 +36,36 @@ const usHistoryLead = (
 
 const storyCards = [
   {
-    icon: "rocket_launch",
-    title: "Revolutionising Utility Technology",
+    icon: "bolt",
+    title: "Empowering the Future of Energy",
     description:
-      "We put our energy into building industry-changing utility technology, transforming how people power their homes and businesses by reinventing how utilities operate.",
+      "We support utilities, energy retailers, and energy transition providers through technology, expertise, and innovation. By combining leading software solutions with strategic industry knowledge, we help clients adapt to evolving market demands, improve customer outcomes, and achieve sustainable growth in a rapidly changing energy landscape.",
   },
   {
-    icon: "cloud",
-    title: "Providers of Cloud-Native, AI-powered SaaS",
+    icon: "hub",
+    title: "End-to-End Utility Solutions",
     description:
-      "Built for a cloud era, our AI-powered solutions are designed to reduce complexity, accelerate change and deliver smarter operations, providing the backbone architecture to enable rapid innovation in a changing market.",
+      "With software and solutions successfully implemented across global energy markets, we provide end-to-end customer experience and customer management solutions for utility companies, energy retailers, and energy transition product and service providers. Our platform supports the full customer lifecycle, from acquisition and onboarding to billing, payments, service, and retention.",
   },
   {
-    icon: "eco",
-    title: "Innovation in Decarbonisation",
+    icon: "psychology",
+    title: "Strategic Advisory and Industry Expertise",
     description:
-      "We help utilities unlock new revenue opportunities and keep pace with changing landscapes amidst climate change, grid transformation and new technologies, moving beyond legacy constraints.",
+      "Skipping Stone, a wholly owned Tally Group subsidiary, complements our technology solutions with industry-leading consulting expertise. Our team helps organizations navigate change through strategy development, product innovation, risk management, market research, training, competitive analysis, and execution of growth initiatives, enabling clients to succeed in rapidly evolving energy markets.",
   },
   {
-    icon: "group",
-    title: "Built for People and Performance",
+    icon: "public",
+    title: "Global Reach. Proven Results.",
     description:
-      "Our solutions empower consumers and operators alike, driving operational efficiency through automated processes and intuitive self-service tooling, and equipping operators with real-time insights to resolve issues faster.",
-  },
-  {
-    icon: "handshake",
-    title: "Uniting Energy Solutions Worldwide",
-    description:
-      "Formed in 2021, Tally Group brings together the strengths and expertise of multiple leading companies under one vision to deliver end-to-end utility technology and services across six diverse markets.",
-  },
-  {
-    icon: "language",
-    title: "Global Reach, Local Focus",
-    description:
-      "With origins in one of the world\u2019s most complex energy markets, we combine global capability with deep local knowledge to meet unique regulatory, market and customer requirements across every region.",
+      "Trusted by energy retailers and energy service providers worldwide, we deliver proven software and consulting solutions in some of the world\u2019s most complex energy markets. Our global team combines deep industry expertise with local market knowledge to help clients transform operations, improve customer experiences, and accelerate growth.",
   },
 ];
 
 const aboutStats = [
-  { num: "50", unit: "+", label: "Clients globally" },
-  { num: "300", unit: "+", label: "Global staff" },
-  { num: "5", unit: "M+", label: "Meter points" },
-  { num: "$15", unit: "B+", label: "Annual billing" },
+  { num: "50", unit: "+", label: "Clients" },
+  { num: "300", unit: "+", label: "Consulting Clients" },
+  { num: "5", unit: "M+", label: "Meter Points" },
+  { num: "370", unit: "+", label: "Employees" },
 ];
 
 const clientCommitments = [
@@ -144,11 +132,6 @@ const leaders = [
     bio: "Chris joined Tally in 2012 and brings more than 14 years\u2019 experience designing enterprise-scale billing and regulatory solutions for the energy sector. He has held roles across engineering and architecture, and now helps shape product direction and delivery for Tally\u2019s U.S. platforms. Chris combines deep technical expertise with a practical understanding of client needs, driving solutions that are robust, scalable and aligned to complex market requirements.",
     photoSrc: "/us/Chris Bates.jpg",
   },
-  {
-    name: "TBD",
-    role: "Sales Manager",
-    bio: "Bio coming soon.",
-  },
 ];
 
 export default function AboutPage() {
@@ -178,10 +161,12 @@ export default function AboutPage() {
               Who we are
             </div>
             <h2 className="text-[30px] lg:text-[48px] font-light leading-[1.15] tracking-[-0.02em] text-navy">
-              Proven transformation partners for leading utilities.
+              Enabling the Future of Retail Energy
+              <br />
+              Smarter • Faster • Better
             </h2>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[20px]">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-[20px]">
             {storyCards.map((card) => (
               <div key={card.title} className="bg-bg2 rounded-xl p-[28px] flex flex-col gap-[14px]">
                 <div className="w-10 h-10 rounded-[10px] bg-[#F0F9FF] border border-navy/[0.08] grid place-items-center text-navy">
@@ -221,7 +206,7 @@ export default function AboutPage() {
               Unparalleled breadth of experience
             </div>
             <h2 className="text-[30px] lg:text-[48px] font-light leading-[1.15] tracking-[-0.02em] text-navy">
-              Proven expertise in complex utility ecosystems.
+              Global Scale. Proven Results.
             </h2>
           </div>
 

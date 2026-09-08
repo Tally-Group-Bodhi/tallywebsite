@@ -223,14 +223,6 @@ function buildUSNavLinks(href: (path: string) => string): NavLink[] {
       ],
     },
     {
-      label: "Insights",
-      hasMenu: true,
-      children: [
-        { href: href("/insights/case-studies"), label: "Case Studies" },
-        { href: href("/insights/resources"), label: "Resources" },
-      ],
-    },
-    {
       label: "News",
       hasMenu: true,
       children: [
