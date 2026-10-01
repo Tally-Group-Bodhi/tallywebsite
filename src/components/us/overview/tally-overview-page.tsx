@@ -29,7 +29,7 @@ function ModuleGrid() {
           One Platform, Endless Configurations.
         </h2>
         <p className="mt-[20px] text-[16px] lg:text-[18px] leading-[1.75] text-fg2 max-w-[62ch]">
-          Choose the modules you need. Launch faster, change products in
+          Choose the entire solution or just the modules you need. Launch faster, change products in
           hours—not weeks—and scale without stacking headcount.
         </p>
 
@@ -176,7 +176,7 @@ export function TallyOverviewPage() {
           </h1>
           <p className="mt-[24px] text-[17px] lg:text-[19px] leading-[1.7] text-fg2 max-w-[58ch] m-0">
             One modular platform for billing, sales, customer engagement, and
-            energy transition—configured to how U.S. retailers actually operate.
+            energy transition—configured to how U.S. modern retailers actually operate.
           </p>
         </div>
       </section>

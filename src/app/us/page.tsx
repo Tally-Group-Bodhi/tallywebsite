@@ -13,7 +13,7 @@ export default function USHome() {
       <LogoMarqueeUS />
       <USCtaSection
         title="Ready for a solution that fits today and tomorrow's marketplace?"
-        description="Even if you already have a back office solution, it's worth your time to see what a modern global solution looks like."
+        description="Even if you already have a back-office solution, it's worth your time to see what a modern global solution looks like. Don't need a full replacement? We can append select modules to your existing system."
         primaryLabel="Book a demo"
         secondaryLabel="Contact us"
       />

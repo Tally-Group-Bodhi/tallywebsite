@@ -336,7 +336,6 @@ export default function USServicesPage() {
               className="inline-flex items-center gap-2 px-5 py-[11px] rounded-lg text-sm font-medium bg-navy text-white border border-navy hover:bg-navy-dark hover:border-navy-dark transition-all"
             >
               Book a demo
-              <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
             </MarketingLink>
             <MarketingLink
               href="/#platform"

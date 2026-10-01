@@ -57,12 +57,6 @@ export function USCtaSection({
               className="inline-flex items-center gap-2 px-6 py-[12px] rounded-lg text-sm font-semibold bg-turquoise text-navy border border-turquoise hover:bg-turquoise-hover hover:border-turquoise-hover transition-all shadow-sm"
             >
               {primaryLabel}
-              <span
-                className="material-symbols-outlined text-[16px]"
-                aria-hidden
-              >
-                arrow_forward
-              </span>
             </MarketingLink>
             <MarketingLink
               href={secondaryHref}

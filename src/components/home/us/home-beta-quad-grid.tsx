@@ -58,23 +58,23 @@ const quadrantMeta: Record<
     corner: "tl",
     icons: [Receipt, Settings2, CreditCard, Workflow],
   },
+  "sales-management": {
+    tint: "rgba(188, 218, 251, 0.8)",
+    glow: "rgba(188, 218, 251, 0.6)",
+    corner: "tr",
+    icons: [Tag, Briefcase, ClipboardCheck, UserPlus],
+  },
   "customer-engagement": {
     tint: "rgba(215, 200, 244, 0.8)",
     glow: "rgba(215, 200, 244, 0.6)",
-    corner: "tr",
+    corner: "bl",
     icons: [Bot, LayoutDashboard, UserCircle, Sparkles],
   },
   "transition-products": {
     tint: "rgba(174, 215, 204, 0.8)",
     glow: "rgba(174, 215, 204, 0.6)",
-    corner: "bl",
-    icons: [Zap, Sun, Network, Leaf],
-  },
-  "sales-management": {
-    tint: "rgba(188, 218, 251, 0.8)",
-    glow: "rgba(188, 218, 251, 0.6)",
     corner: "br",
-    icons: [Tag, Briefcase, UserPlus, ClipboardCheck],
+    icons: [Zap, Sun, Network, Leaf],
   },
 };
 

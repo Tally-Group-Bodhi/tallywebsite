@@ -13,7 +13,7 @@ export const US_OVERVIEW_MODULES: OverviewModule[] = [
     id: "order-to-cash",
     title: "Order to Cash",
     description:
-      "Run the full order-to-cash lifecycle on one system—accurate bills, tighter cash flow, and exception handling that keeps operations moving.",
+      "Run the full order-to-cash lifecycle on one system—accurate bills, tighter cash flow, and straight-through processing with exception handling that keeps operations moving.",
     items: [
       "Billing",
       "Meter-to-Bill Operations",
@@ -60,7 +60,7 @@ export const US_OVERVIEW_MODULES: OverviewModule[] = [
     id: "energy-transition",
     title: "Energy Transition Solutions",
     description:
-      "Launch net-zero-ready products—demand response, distributed energy, and ESG reporting—on the same platform as your core retail stack.",
+      "Launch net-zero-ready products—demand response, distributed energy, and solar, and EV charging—on the same platform as your core retail stack.",
     items: [
       "Demand Response",
       "Solar, Electric Vehicles & Battery Storage (BESS)",

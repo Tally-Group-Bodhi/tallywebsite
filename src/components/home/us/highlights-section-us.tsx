@@ -67,7 +67,7 @@ export function HighlightsSectionUS() {
           <p className="text-[16px] lg:text-[18px] leading-[1.85] text-fg2 mx-auto max-w-[68ch]">
             Tally+ is utilized by energy retailers across the globe, including
             in the US, Australia, New Zealand, and Japan. We adapted best
-            practices from all of our experiences for the US market.
+            practices from our global experiences for the US Market.
           </p>
         </motion.div>
       </div>

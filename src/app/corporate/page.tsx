@@ -254,7 +254,6 @@ export default function CorporateHomePage() {
                 className="inline-flex items-center gap-2 px-7 py-[13px] rounded-full text-[15px] font-semibold bg-turquoise text-navy border border-turquoise hover:bg-turquoise-hover hover:border-turquoise-hover transition-all shadow-sm"
               >
                 Book a demo
-                <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
               </Link>
               <Link
                 href="/corporate/leadership"

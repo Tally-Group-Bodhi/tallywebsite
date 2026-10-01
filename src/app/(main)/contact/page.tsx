@@ -160,8 +160,7 @@ export default function ContactPage() {
               href="/contact"
               className="inline-flex items-center gap-2 px-6 py-[12px] rounded-lg text-sm font-semibold bg-turquoise text-navy border border-turquoise hover:bg-turquoise-hover hover:border-turquoise-hover transition-all shadow-sm"
             >
-              Book a demo{" "}
-              <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
+              Book a demo
             </Link>
           </div>
         </div>

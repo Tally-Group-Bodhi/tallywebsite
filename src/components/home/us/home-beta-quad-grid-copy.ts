@@ -18,6 +18,16 @@ export const US_HOME_QUADRANTS = [
     ],
   },
   {
+    id: "sales-management",
+    title: "Sales Management",
+    subItems: [
+      "Rate Plans",
+      "Sales Portal",
+      "Paperless Signup",
+      "Customer Enrollment",
+    ],
+  },
+  {
     id: "customer-engagement",
     title: "Customer Engagement",
     subItems: [
@@ -35,16 +45,6 @@ export const US_HOME_QUADRANTS = [
       "Solar, Electric Vehicles & Battery Storage (BESS)",
       "Distributed Energy Resources (DER)",
       "ESG & Carbon Reporting",
-    ],
-  },
-  {
-    id: "sales-management",
-    title: "Sales Management",
-    subItems: [
-      "Rate Plans",
-      "Sales Portal",
-      "Auto-Enrollment",
-      "Customer Enrollment",
     ],
   },
 ] as const;

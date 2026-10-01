@@ -121,6 +121,11 @@ const leaders = [
     photoSrc: "/corporate/Eric Yilmaz.jpg",
   },
   {
+    name: "TBD",
+    role: "Director of Business Development North America",
+    bio: "Bio coming soon.",
+  },
+  {
     name: "Raine Figaro",
     role: "Delivery Lead",
     bio: "Raine joined Tally as U.S. Delivery Lead in 2023, bringing more than 20 years\u2019 experience across global program, project and portfolio delivery. She has led large-scale technology and transformation initiatives at organisations including Amazon Web Services, Capital One, Microsoft and Verizon, with a strong focus on execution, stakeholder alignment and customer outcomes. Raine is known for building high-performing teams and fostering a collaborative, growth-focused culture, with a leadership style grounded in trust, mentorship and delivery excellence.",
@@ -143,12 +148,24 @@ export default function AboutPage() {
       }}>
         <div className="max-w-[1240px] mx-auto px-8">
           <h1 className="text-[44px] lg:text-[64px] font-light leading-[1.04] tracking-[-0.025em] text-navy">
-            Intelligent utilitech<br />solutions.
+            Reduce Cost-to-Serve.
+            <br />
+            Modernize Operations.
+            <br />
+            Accelerate Growth.
           </h1>
 
-          <p className="mt-[20px] text-[19px] leading-[1.55] text-fg2 max-w-[60ch]">
-            Tally Group designs and delivers cloud-native, AI-powered utility software that cuts cost, captures opportunity, and empowers your people.
-          </p>
+          <div className="mt-[20px] text-[19px] leading-[1.55] text-fg2 max-w-[60ch] flex flex-col gap-[16px]">
+            <p className="m-0">
+              Tally Group delivers innovative software solutions to energy
+              retailers and emerging energy service providers.
+            </p>
+            <p className="m-0">
+              With Tally+, businesses can bring customer management, billing,
+              payments, and workflow automation together in one scalable
+              platform designed for growth.
+            </p>
+          </div>
         </div>
       </section>
 
