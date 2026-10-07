@@ -44,7 +44,6 @@ export const US_HOME_QUADRANTS = [
       "Demand Response",
       "Solar, Electric Vehicles & Battery Storage (BESS)",
       "Distributed Energy Resources (DER)",
-      "ESG & Carbon Reporting",
     ],
   },
 ] as const;

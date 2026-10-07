@@ -10,7 +10,6 @@ import {
   ClipboardCheck,
   CreditCard,
   LayoutDashboard,
-  Leaf,
   Network,
   Receipt,
   Settings2,
@@ -74,7 +73,7 @@ const quadrantMeta: Record<
     tint: "rgba(174, 215, 204, 0.8)",
     glow: "rgba(174, 215, 204, 0.6)",
     corner: "br",
-    icons: [Zap, Sun, Network, Leaf],
+    icons: [Zap, Sun, Network],
   },
 };
 

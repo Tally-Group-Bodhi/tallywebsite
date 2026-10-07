@@ -8,15 +8,16 @@ type Partner = {
   scale?: number;
 };
 
+/** Same customer set and sizing as the Japan homepage marquee. */
 const partners: Partner[] = [
-  { src: "1stenergy.png", alt: "1st Energy", scale: 1.25 },
-  { src: "gexaenergy.jpeg", alt: "Gexa Energy", scale: 1.2 },
-  { src: "frontier.png", alt: "Frontier Utilities" },
-  { src: "nexteraenergy.png", alt: "NextEra Energy", scale: 1.4 },
-  { src: "santanna.jpeg", alt: "Santanna Energy Services", scale: 1.2 },
-  { src: "engie.png", alt: "Engie", scale: 0.85 },
-  { src: "energyaustralia.png", alt: "EnergyAustralia" },
-  { src: "enel.jpeg", alt: "Enel" },
+  { src: "1st-energy.svg", alt: "1st Energy", scale: 1.25 },
+  { src: "gexa-energy.svg", alt: "Gexa Energy", scale: 1.2 },
+  { src: "kiwi-energy.svg", alt: "Kiwi Energy" },
+  { src: "pogo-energy.svg", alt: "Pogo Energy" },
+  { src: "real-utilities.svg", alt: "Real Utilities" },
+  { src: "santanna-energy-services.svg", alt: "Santanna Energy Services", scale: 1.2 },
+  { src: "tonga-power-limited.svg", alt: "Tonga Power Limited" },
+  { src: "varsity-energy.svg", alt: "Varsity Energy" },
 ];
 
 const BASE_MAX_H = 96;

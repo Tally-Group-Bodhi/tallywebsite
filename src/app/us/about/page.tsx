@@ -121,9 +121,10 @@ const leaders = [
     photoSrc: "/corporate/Eric Yilmaz.jpg",
   },
   {
-    name: "TBD",
+    name: "Michael Harrison",
     role: "Director of Business Development North America",
-    bio: "Bio coming soon.",
+    bio: "Michael joined Tally in 2026 as Director of Business Development, North America, bringing more than 15 years of experience in energy markets and commercial leadership. He previously led sales at Gold Star Energy and served as President of EDGE On Demand, a CRM and energy analytics platform for energy procurement. At EDGE, he spearheaded end-to-end sales, product roadmap development, and business operations, connecting commercial priorities with tools that supported energy buyers and partners. Michael combines deep market knowledge with a practical, relationship-focused approach to helping clients address complex business needs.",
+    photoSrc: "/us/Michael Harrison.jpg",
   },
   {
     name: "Raine Figaro",
