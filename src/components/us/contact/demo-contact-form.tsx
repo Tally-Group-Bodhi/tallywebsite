@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
-/** Intended destination for US contact form submissions. */
+/** Destination inbox for US contact form submissions. */
 export const US_CONTACT_FORM_RECIPIENT = "contact_us@tally-group.com";
 
 const inquiryTypes = ["demo", "sales", "general", "partner"] as const;
@@ -26,6 +26,7 @@ const schema = z
     solutionOther: z.boolean().optional(),
     solutionOtherText: z.string().optional(),
     message: z.string().optional(),
+    botcheck: z.boolean().optional(),
     consent: z.literal(true, {
       error: () => "Please agree to the Privacy Policy",
     }),
@@ -67,6 +68,7 @@ const sectionTitleClass =
   "text-[15px] font-semibold text-navy pt-[8px] border-t border-stroke1";
 
 export function DemoContactForm() {
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const {
     register,
     handleSubmit,
@@ -91,6 +93,7 @@ export function DemoContactForm() {
       solutionOther: false,
       solutionOtherText: "",
       message: "",
+      botcheck: false,
       consent: undefined as unknown as true,
     },
   });
@@ -104,11 +107,64 @@ export function DemoContactForm() {
   }, [otherChecked, setValue]);
 
   const onSubmit = async (data: FormData) => {
-    console.log(
-      "US contact form submitted (route to):",
-      US_CONTACT_FORM_RECIPIENT,
-      data,
+    setSubmitError(null);
+
+    if (data.botcheck) {
+      reset();
+      return;
+    }
+
+    const inquiryLabels: Record<FormData["inquiryType"], string> = {
+      demo: "Request a Demo",
+      sales: "Contact Sales",
+      general: "General Inquiry",
+      partner: "Partner Inquiry",
+    };
+
+    const solutions = [
+      data.solutionOrderToCash && "Order to Cash",
+      data.solutionCustomerEngagement && "Customer Engagement",
+      data.solutionTransitionProducts && "Transition Products",
+      data.solutionSalesManagement && "Sales Management",
+      data.solutionOther && `Other: ${data.solutionOtherText ?? ""}`,
+    ]
+      .filter(Boolean)
+      .join(" / ");
+
+    const res = await fetch(
+      `https://formsubmit.co/ajax/${US_CONTACT_FORM_RECIPIENT}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          _subject: `US Contact: ${inquiryLabels[data.inquiryType]}`,
+          _replyto: data.workEmail,
+          _template: "table",
+          "Inquiry type": inquiryLabels[data.inquiryType],
+          "First name": data.firstName,
+          "Last name": data.lastName,
+          Company: data.companyName,
+          "Work email": data.workEmail,
+          Phone: data.phone,
+          "Job title": data.jobTitle || "(not provided)",
+          "Solutions of interest": solutions,
+          Message: data.message || "(not provided)",
+        }),
+      },
     );
+
+    const json = (await res.json().catch(() => null)) as {
+      success?: string | boolean;
+      message?: string;
+    } | null;
+
+    if (!res.ok || !json || json.success === "false" || json.success === false) {
+      setSubmitError("Something went wrong. Please try again in a moment.");
+      throw new Error("FormSubmit submission failed");
+    }
     reset();
   };
 
@@ -118,13 +174,29 @@ export function DemoContactForm() {
       noValidate
       className="flex flex-col gap-[20px]"
     >
+      <input
+        type="checkbox"
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+        {...register("botcheck")}
+        className="hidden"
+      />
+
       {isSubmitSuccessful && (
         <div
           role="status"
           className="rounded-xl border border-turquoise/40 bg-turquoise/10 px-[20px] py-[16px] text-sm font-semibold text-navy"
         >
-          Thank you. Your message has been recorded for this prototype (no data
-          was sent).
+          Thank you. Your message has been sent — we&apos;ll be in touch soon.
+        </div>
+      )}
+      {submitError && (
+        <div
+          role="alert"
+          className="rounded-xl border border-red-200 bg-red-50 px-[20px] py-[16px] text-sm font-semibold text-red-700"
+        >
+          {submitError}
         </div>
       )}
 

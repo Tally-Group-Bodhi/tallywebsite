@@ -129,7 +129,7 @@ const leaders = [
   {
     name: "Raine Figaro",
     role: "Delivery Lead",
-    bio: "Raine joined Tally as U.S. Delivery Lead in 2023, bringing more than 20 years\u2019 experience across global program, project and portfolio delivery. She has led large-scale technology and transformation initiatives at organisations including Amazon Web Services, Capital One, Microsoft and Verizon, with a strong focus on execution, stakeholder alignment and customer outcomes. Raine is known for building high-performing teams and fostering a collaborative, growth-focused culture, with a leadership style grounded in trust, mentorship and delivery excellence.",
+    bio: "Raine joined Tally as U.S. Delivery Lead in 2023, bringing more than 20 years\u2019 experience across global program, project and portfolio delivery. She has led large-scale technology and transformation initiatives at organizations including Amazon Web Services, Capital One, Microsoft and Verizon, with a strong focus on execution, stakeholder alignment and customer outcomes. Raine is known for building high-performing teams and fostering a collaborative, growth-focused culture, with a leadership style grounded in trust, mentorship and delivery excellence.",
     photoSrc: "/us/Raine Figaro.jpg",
   },
   {
@@ -173,7 +173,7 @@ export default function AboutPage() {
       {/* Who we are */}
       <section id="who-we-are" className="scroll-mt-[88px] py-[96px]">
         <div className="max-w-[1240px] mx-auto px-8">
-          <div className="mb-[48px] max-w-[720px]">
+          <div className="mb-[48px] max-w-[1100px]">
             <div className="text-xs font-medium text-fg2 uppercase tracking-[0.1em] mb-[12px] inline-flex items-center gap-2">
               <span className="w-[18px] h-[1px] bg-turquoise inline-block" />
               Who we are
@@ -204,6 +204,7 @@ export default function AboutPage() {
         compact
         eyebrow="History"
         heading="A journey of innovation and growth."
+        headerClassName="max-w-[1100px]"
         lead={usHistoryLead}
         entries={[
           { year: "2018", title: "Tally founded" },
@@ -252,7 +253,7 @@ export default function AboutPage() {
         background: "linear-gradient(to bottom, #F9F9FB 0%, #FFFFFF 100%)"
       }}>
         <div className="max-w-[1240px] mx-auto px-8">
-          <div className="mb-[48px] max-w-[720px]">
+          <div className="mb-[48px] max-w-[1100px]">
             <div className="text-xs font-medium text-fg2 uppercase tracking-[0.1em] mb-[12px] inline-flex items-center gap-2">
               <span className="w-[18px] h-[1px] bg-turquoise inline-block" />
               U.S. Leadership
@@ -282,7 +283,7 @@ export default function AboutPage() {
         background: "linear-gradient(to bottom, #F9F9FB 0%, #FFFFFF 100%)"
       }}>
         <div className="max-w-[1240px] mx-auto px-8">
-          <div className="mb-[48px] max-w-[820px]">
+          <div className="mb-[48px] max-w-[1100px]">
             <div className="text-xs font-medium text-fg2 uppercase tracking-[0.1em] mb-[12px] inline-flex items-center gap-2">
               <span className="w-[18px] h-[1px] bg-turquoise inline-block" />
               Mission & Values

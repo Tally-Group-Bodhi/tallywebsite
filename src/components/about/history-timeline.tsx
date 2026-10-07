@@ -63,6 +63,8 @@ type HistoryTimelineProps = {
   showDivider?: boolean;
   /** Tighter horizontal spacing between year markers (e.g. title-only entries). */
   compact?: boolean;
+  /** Optional class for the heading/lead column (e.g. wider max-width). */
+  headerClassName?: string;
 };
 
 export function HistoryTimeline({
@@ -74,6 +76,7 @@ export function HistoryTimeline({
   scrollRightLabel = "Scroll timeline right",
   showDivider = true,
   compact = false,
+  headerClassName = "max-w-[720px]",
 }: HistoryTimelineProps = {}) {
   const timeline = entries;
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -123,7 +126,7 @@ export function HistoryTimeline({
     >
       <div className="max-w-[1240px] mx-auto px-8">
         <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-[32px] mb-[56px]">
-          <div className="max-w-[720px]">
+          <div className={headerClassName}>
             <div className="text-xs font-medium text-fg2 uppercase tracking-[0.1em] mb-[12px] inline-flex items-center gap-2">
               <span className="w-[18px] h-[1px] bg-turquoise inline-block" />
               {eyebrow}

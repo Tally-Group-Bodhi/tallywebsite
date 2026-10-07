@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import {
   JP_MARKETING_BASE,
+  US_MARKETING_BASE,
   useMarketingBasePath,
   useMarketingHref,
 } from "@/contexts/marketing-region";
@@ -61,6 +62,41 @@ function buildDefaultColumns(href: (path: string) => string): FooterColumn[] {
   ];
 }
 
+function buildUSColumns(href: (path: string) => string): FooterColumn[] {
+  return [
+    {
+      title: "Solutions",
+      links: [
+        { label: "Tally+", href: href("/overview") },
+        { label: "Services", href: href("/services") },
+      ],
+    },
+    {
+      title: "Technology",
+      links: [
+        { label: "Architecture", href: href("/technology/architecture") },
+        { label: "Security", href: href("/technology/security") },
+        { label: "API Library", href: href("/technology/api-library") },
+      ],
+    },
+    {
+      title: "Company",
+      links: [
+        { label: "About", href: href("/about") },
+        { label: "Careers", href: href("/careers") },
+        { label: "Contact", href: href("/contact") },
+      ],
+    },
+    {
+      title: "News",
+      links: [
+        { label: "Press Releases", href: href("/news/press-releases") },
+        { label: "Events", href: href("/news/events") },
+      ],
+    },
+  ];
+}
+
 function buildJPColumns(href: (path: string) => string): FooterColumn[] {
   return [
     {
@@ -100,15 +136,31 @@ export function Footer() {
   const basePath = useMarketingBasePath();
   const isAustralia = basePath === "";
   const isJP = basePath === JP_MARKETING_BASE;
+  const isUS = basePath === US_MARKETING_BASE;
 
-  const columns = isJP ? buildJPColumns(href) : buildDefaultColumns(href);
+  const columns = isJP
+    ? buildJPColumns(href)
+    : isUS
+      ? buildUSColumns(href)
+      : buildDefaultColumns(href);
+
   const tagline = isJP
     ? "The platform for energy retailers in Japan. Proudly built in Australia."
-    : "The platform for global energy retailers. Proudly built in Australia.";
+    : isUS
+      ? (
+          <>
+            The platform for energy retailers worldwide.
+            <br />
+            Trusted by leading energy providers.
+          </>
+        )
+      : "The platform for global energy retailers. Proudly built in Australia.";
 
   const mainGridClass = isJP
     ? "grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr_1fr] gap-x-[32px] gap-y-[40px] lg:gap-[48px]"
-    : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr_1fr] gap-[48px]";
+    : isUS
+      ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr_1fr] gap-[48px]"
+      : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr_1fr] gap-[48px]";
 
   return (
     <footer className="bg-navy-dark text-white pt-[72px] pb-6">
