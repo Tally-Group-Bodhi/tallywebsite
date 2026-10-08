@@ -108,60 +108,65 @@ const radialOrigin: Record<Corner, string> = {
 
 const isRightCorner = (corner: Corner) => corner === "tr" || corner === "br";
 
-const FINE_HOVER_QUERY = "(hover: hover) and (pointer: fine)";
+/**
+ * Only true mouse/trackpad desktops — excludes iPadOS, which often reports
+ * hover:hover (sticky :hover) even when primary input is touch.
+ */
+const DESKTOP_HOVER_QUERY =
+  "(hover: hover) and (pointer: fine) and (any-pointer: fine) and (any-hover: hover)";
 
-function subscribeFineHover(onChange: () => void) {
-  const media = window.matchMedia(FINE_HOVER_QUERY);
+function subscribeDesktopHover(onChange: () => void) {
+  const media = window.matchMedia(DESKTOP_HOVER_QUERY);
   media.addEventListener("change", onChange);
   return () => media.removeEventListener("change", onChange);
 }
 
-function getFineHoverSnapshot() {
-  return window.matchMedia(FINE_HOVER_QUERY).matches;
+function getDesktopHoverSnapshot() {
+  // Touch-capable devices should never use hover-reveal (avoids sticky iPad hover).
+  if (navigator.maxTouchPoints > 0) return false;
+  return window.matchMedia(DESKTOP_HOVER_QUERY).matches;
 }
 
-/** SSR assumes fine hover so large screens don’t flash always-visible bullets. */
-function getFineHoverServerSnapshot() {
+function getDesktopHoverServerSnapshot() {
   return true;
 }
 
-function useCanFineHover() {
+function useIsDesktopHover() {
   return useSyncExternalStore(
-    subscribeFineHover,
-    getFineHoverSnapshot,
-    getFineHoverServerSnapshot,
+    subscribeDesktopHover,
+    getDesktopHoverSnapshot,
+    getDesktopHoverServerSnapshot,
   );
 }
 
 function SubItemRows({
   items,
   reverse,
-  size = "sm",
+  compact,
 }: {
   items: SubItem[];
   reverse: boolean;
-  size?: "sm" | "lg";
+  compact?: boolean;
 }) {
-  const isLg = size === "lg";
   return (
     <div
-      className={`flex flex-col ${isLg ? "mt-6 gap-2" : "mt-4 sm:mt-5 gap-1 sm:gap-1.5"} ${reverse ? "items-end" : "items-start"}`}
+      className={`flex flex-col ${compact ? "mt-2 gap-0.5" : "mt-4 sm:mt-5 gap-1 sm:gap-1.5"} ${reverse ? "items-end" : "items-start"}`}
       role="list"
     >
       {items.map(({ label, icon: Icon }) => (
         <div
           key={label}
           role="listitem"
-          className={`flex items-center ${isLg ? "gap-2.5 text-[16px]" : "gap-2 sm:gap-2.5 text-[13px] sm:text-[15px]"} font-medium text-white/85 drop-shadow-[0_1px_8px_rgba(0,0,0,0.35)] ${reverse ? "flex-row-reverse" : ""}`}
+          className={`flex items-center ${compact ? "gap-1.5 text-[12px] leading-tight" : "gap-2 sm:gap-2.5 text-[13px] sm:text-[15px]"} font-medium text-white/85 drop-shadow-[0_1px_8px_rgba(0,0,0,0.35)] ${reverse ? "flex-row-reverse" : ""}`}
         >
           <Icon
-            width={isLg ? 17 : 14}
-            height={isLg ? 17 : 14}
-            className={`${isLg ? "h-[17px] w-[17px]" : "h-[14px] w-[14px] sm:h-[16px] sm:w-[16px]"} shrink-0 text-white/75`}
+            width={compact ? 13 : 14}
+            height={compact ? 13 : 14}
+            className={`${compact ? "h-[13px] w-[13px]" : "h-[14px] w-[14px] sm:h-[16px] sm:w-[16px]"} shrink-0 text-white/75`}
             strokeWidth={1.75}
             aria-hidden
           />
-          <span>{label}</span>
+          <span className="min-w-0">{label}</span>
         </div>
       ))}
     </div>
@@ -170,11 +175,9 @@ function SubItemRows({
 
 export function HomeBetaQuadGridUS() {
   const [activeId, setActiveId] = useState<string | null>(null);
-  const canFineHover = useCanFineHover();
-
-  const toggleActive = (id: string) => {
-    setActiveId((current) => (current === id ? null : id));
-  };
+  const isDesktopHover = useIsDesktopHover();
+  // Touch / iPad: always show bullets, never dim or sticky-hover.
+  const touchMode = !isDesktopHover;
 
   return (
     <section className="relative h-[100dvh] flex flex-col bg-white pt-[84px] px-4 sm:px-6 pb-4 sm:pb-6">
@@ -217,28 +220,26 @@ export function HomeBetaQuadGridUS() {
 
         <div className="relative h-full w-full grid grid-cols-2 grid-rows-2 gap-[6px] p-[6px]">
           {quadrants.map((q) => {
-            const isActive = activeId === q.id;
-            const isDimmed = activeId !== null && !isActive;
+            const isActive = !touchMode && activeId === q.id;
+            const isDimmed = !touchMode && activeId !== null && !isActive;
             const reverse = isRightCorner(q.corner);
-            // Always-visible bullets on touch / coarse pointers; hover-reveal on fine desktop.
-            const showAlwaysVisibleBullets = !canFineHover;
 
             return (
               <motion.div
                 key={q.id}
                 onHoverStart={() => {
-                  if (canFineHover) setActiveId(q.id);
+                  if (isDesktopHover) setActiveId(q.id);
                 }}
                 onHoverEnd={() => {
-                  if (canFineHover) setActiveId(null);
-                }}
-                onTap={() => {
-                  if (!canFineHover) toggleActive(q.id);
+                  if (isDesktopHover) setActiveId(null);
                 }}
                 animate={{ opacity: isDimmed ? 0.55 : 1 }}
                 transition={{ duration: 0.35, ease: "easeOut" }}
-                className="relative cursor-pointer overflow-hidden rounded-[14px] border border-white/25 backdrop-blur-md shadow-[0_24px_60px_rgba(0,0,0,0.4)]"
-                style={{ backgroundColor: q.tint }}
+                className="relative overflow-hidden rounded-[14px] border border-white/25 backdrop-blur-md shadow-[0_24px_60px_rgba(0,0,0,0.4)]"
+                style={{
+                  backgroundColor: q.tint,
+                  cursor: isDesktopHover ? "pointer" : "default",
+                }}
               >
                 <motion.div
                   aria-hidden
@@ -260,35 +261,44 @@ export function HomeBetaQuadGridUS() {
                 />
 
                 <div
-                  className={`relative h-full w-full p-5 sm:p-7 lg:p-9 flex flex-col ${cornerAnchor[q.corner]}`}
+                  className={`relative h-full w-full min-h-0 flex flex-col ${cornerAnchor[q.corner]} ${
+                    touchMode
+                      ? "p-3 sm:p-4 lg:p-5"
+                      : "p-5 sm:p-7 lg:p-9"
+                  }`}
                 >
                   <motion.div
+                    className="min-w-0 max-w-full"
                     animate={{ y: isActive ? -6 : 0 }}
                     transition={{ duration: 0.3, ease: "easeOut" }}
                   >
                     <h2
-                      className={`text-[16px] sm:text-[22px] lg:text-[30px] font-light leading-[1.2] tracking-[-0.02em] text-white max-w-[14em] drop-shadow-[0_2px_12px_rgba(0,0,0,0.4)] ${q.singleLine ? "lg:max-w-none lg:whitespace-nowrap" : ""}`}
+                      className={`font-light leading-[1.15] tracking-[-0.02em] text-white max-w-[14em] drop-shadow-[0_2px_12px_rgba(0,0,0,0.4)] ${
+                        touchMode
+                          ? "text-[15px] sm:text-[18px] lg:text-[22px]"
+                          : "text-[16px] sm:text-[22px] lg:text-[30px]"
+                      } ${q.singleLine ? "lg:max-w-none lg:whitespace-nowrap" : ""}`}
                     >
                       {q.title}
                     </h2>
 
                     {q.subItems ? (
                       <>
-                        {/* Always-visible path: mobile widths + all coarse/touch pointers (incl. iPad landscape). */}
+                        {/* Always-visible on touch/iPad and below lg on desktop. */}
                         <div
                           className={
-                            showAlwaysVisibleBullets ? "block" : "lg:hidden"
+                            touchMode ? "block" : "lg:hidden"
                           }
                         >
                           <SubItemRows
                             items={q.subItems}
                             reverse={reverse}
-                            size="sm"
+                            compact={touchMode}
                           />
                         </div>
 
-                        {/* Hover-reveal path: fine-pointer desktop at lg+ only. */}
-                        {canFineHover && (
+                        {/* Hover-reveal: mouse desktop at lg+ only. */}
+                        {isDesktopHover && (
                           <div className="hidden lg:block">
                             <AnimatePresence initial={false}>
                               {isActive && (
@@ -392,8 +402,8 @@ export function HomeBetaQuadGridUS() {
           <motion.div
             className="relative"
             animate={{
-              scale: activeId ? 1.06 : 1,
-              y: activeId ? -8 : 0,
+              scale: activeId && isDesktopHover ? 1.06 : 1,
+              y: activeId && isDesktopHover ? -8 : 0,
             }}
             transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
           >
@@ -404,7 +414,9 @@ export function HomeBetaQuadGridUS() {
                 background:
                   "radial-gradient(ellipse at center, rgba(0,210,162,0.42) 0%, rgba(0,210,162,0.18) 35%, transparent 70%)",
               }}
-              animate={{ opacity: activeId ? 1 : 0.7 }}
+              animate={{
+                opacity: activeId && isDesktopHover ? 1 : 0.7,
+              }}
               transition={{ duration: 0.4, ease: "easeOut" }}
             />
 
@@ -413,8 +425,8 @@ export function HomeBetaQuadGridUS() {
               className="absolute left-1/2 bottom-[-14%] -translate-x-1/2 w-[85%] h-[18%] rounded-[50%] blur-2xl pointer-events-none"
               style={{ background: "rgba(0,0,0,0.55)" }}
               animate={{
-                opacity: activeId ? 0.85 : 0.6,
-                scaleX: activeId ? 1.05 : 1,
+                opacity: activeId && isDesktopHover ? 0.85 : 0.6,
+                scaleX: activeId && isDesktopHover ? 1.05 : 1,
               }}
               transition={{ duration: 0.4, ease: "easeOut" }}
             />
