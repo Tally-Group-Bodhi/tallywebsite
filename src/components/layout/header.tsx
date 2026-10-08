@@ -14,11 +14,12 @@ import {
 
 const regions = [
   { id: "au", label: "Australia", abbr: "AU", flag: "🇦🇺" },
-  { id: "nz", label: "New Zealand", abbr: "NZ", flag: "🇳🇿" },
   { id: "jp", label: "Japan", abbr: "JP", flag: "🇯🇵" },
   { id: "us", label: "United States", abbr: "US", flag: "🇺🇸" },
-  { id: "ae", label: "UAE", abbr: "UAE", flag: "🇦🇪" },
 ];
+
+const AU_SITE_URL = "https://tally.co";
+const JP_SITE_URL = "https://tally-plus.jp";
 
 type NavChild = { href: string; label: string };
 type NavChildSection = { title: string; items: NavChild[] };
@@ -408,17 +409,12 @@ export function Header() {
     }
 
     if (regionId === "jp") {
-      router.push(JP_MARKETING_BASE);
-      return;
-    }
-
-    if (regionId === "ae") {
-      router.push(AE_MARKETING_BASE);
+      window.location.assign(JP_SITE_URL);
       return;
     }
 
     if (regionId === "au") {
-      router.push("/");
+      window.location.assign(AU_SITE_URL);
     }
   }
 

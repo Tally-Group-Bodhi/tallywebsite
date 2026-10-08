@@ -62,8 +62,8 @@ export default function CareersPage() {
           </p>
 
           <div className="flex gap-3 mt-[32px]">
-            <Link href="#positions" className="inline-flex items-center gap-2 px-5 py-[11px] rounded-lg text-sm font-medium bg-navy text-white border border-navy hover:bg-navy-dark hover:border-navy-dark transition-all">
-              View open positions <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
+            <Link href="#positions" className="inline-flex items-center px-5 py-[11px] rounded-lg text-sm font-medium bg-navy text-white border border-navy hover:bg-navy-dark hover:border-navy-dark transition-all">
+              View open positions
             </Link>
             <Link href="#culture" className="inline-flex items-center gap-2 px-5 py-[11px] rounded-lg text-sm font-medium bg-transparent text-navy border border-stroke1 hover:bg-bg3 transition-all">
               Life at Tally

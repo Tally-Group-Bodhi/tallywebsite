@@ -13,11 +13,13 @@ const aboutLinks = [
 ];
 
 const regions = [
-  { key: "au-nz", label: "Australia & New Zealand", shortLabel: "Australia", abbr: "AU" },
+  { key: "au", label: "Australia", shortLabel: "Australia", abbr: "AU" },
   { key: "us", label: "United States", shortLabel: "United States", abbr: "US" },
   { key: "jp", label: "Japan", shortLabel: "Japan", abbr: "JP" },
-  { key: "uae", label: "United Arab Emirates", shortLabel: "UAE", abbr: "UAE" },
 ];
+
+const AU_SITE_URL = "https://tally.co";
+const JP_SITE_URL = "https://tally-plus.jp";
 
 export function CorporateHeader() {
   const pathname = usePathname();
@@ -143,13 +145,20 @@ export function CorporateHeader() {
                               : "bg-transparent text-fg1 hover:bg-bg3"
                           }`}
                           onClick={() => {
+                            setLocationOpen(false);
                             if (region.key === "us") {
-                              setLocationOpen(false);
                               router.push("/us");
                               return;
                             }
+                            if (region.key === "au") {
+                              window.location.assign(AU_SITE_URL);
+                              return;
+                            }
+                            if (region.key === "jp") {
+                              window.location.assign(JP_SITE_URL);
+                              return;
+                            }
                             setActiveRegion(region);
-                            setLocationOpen(false);
                           }}
                         >
                           <span className="flex items-center gap-[8px]">

@@ -27,9 +27,7 @@ const schema = z
     solutionOtherText: z.string().optional(),
     message: z.string().optional(),
     botcheck: z.boolean().optional(),
-    consent: z.literal(true, {
-      error: () => "Please agree to the Privacy Policy",
-    }),
+    marketingOptIn: z.boolean().optional(),
   })
   .superRefine((data, ctx) => {
     const any =
@@ -94,7 +92,7 @@ export function DemoContactForm() {
       solutionOtherText: "",
       message: "",
       botcheck: false,
-      consent: undefined as unknown as true,
+      marketingOptIn: false,
     },
   });
 
@@ -152,6 +150,7 @@ export function DemoContactForm() {
           "Job title": data.jobTitle || "(not provided)",
           "Solutions of interest": solutions,
           Message: data.message || "(not provided)",
+          "Marketing opt-in": data.marketingOptIn ? "Yes" : "No",
         }),
       },
     );
@@ -415,42 +414,31 @@ export function DemoContactForm() {
       </div>
 
       <p className="text-xs text-fg2 leading-[1.55]">
-        <strong className="text-navy">Privacy notice:</strong> The information
-        you provide will be used to respond to your inquiry and improve our
-        services. Please review our{" "}
-        <a
-          href="/privacy"
-          className="text-navy underline hover:text-turquoise"
-        >
-          Privacy Policy
-        </a>{" "}
-        for more details.
+        By submitting this form, you acknowledge that Tally Group may collect
+        and use the information you provide to respond to your inquiry and as
+        otherwise permitted by applicable law.
       </p>
 
       <div className="flex items-start gap-2">
         <input
-          id="consent"
+          id="marketing-opt-in"
           type="checkbox"
-          {...register("consent")}
-          className="mt-[3px] h-[18px] w-[18px] accent-navy"
+          {...register("marketingOptIn")}
+          className="mt-[3px] h-[18px] w-[18px] accent-navy shrink-0"
         />
-        <label htmlFor="consent" className="text-sm text-fg1">
-          I agree to the Privacy Policy{reqMark}
+        <label htmlFor="marketing-opt-in" className="text-sm text-fg1 leading-[1.45]">
+          I would like to receive marketing communications from Tally Group and
+          its affiliated companies about products, services and other updates. I
+          understand that I can opt out at any time.
         </label>
       </div>
-      {errors.consent && (
-        <p className={errorClass}>{errors.consent.message}</p>
-      )}
 
       <button
         type="submit"
         disabled={isSubmitting}
-        className="w-full inline-flex items-center justify-center gap-2 px-5 py-[12px] rounded-lg text-sm font-semibold bg-navy text-white border border-navy hover:bg-navy-dark hover:border-navy-dark transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+        className="w-full inline-flex items-center justify-center px-5 py-[12px] rounded-lg text-sm font-semibold bg-navy text-white border border-navy hover:bg-navy-dark hover:border-navy-dark transition-all disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {isSubmitting ? "Submitting…" : "Submit"}
-        <span className="material-symbols-outlined text-[16px]">
-          arrow_forward
-        </span>
       </button>
     </form>
   );

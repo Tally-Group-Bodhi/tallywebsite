@@ -83,7 +83,6 @@ function buildUSColumns(href: (path: string) => string): FooterColumn[] {
       title: "Company",
       links: [
         { label: "About", href: href("/about") },
-        { label: "Careers", href: href("/careers") },
         { label: "Contact", href: href("/contact") },
       ],
     },
