@@ -404,7 +404,7 @@ export function Header() {
     closeMobile();
 
     if (regionId === "us") {
-      router.push(US_MARKETING_BASE);
+      router.push(US_MARKETING_BASE || "/");
       return;
     }
 

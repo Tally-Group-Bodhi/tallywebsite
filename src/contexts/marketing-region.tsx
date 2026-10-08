@@ -2,7 +2,8 @@
 
 import { createContext, useContext, useMemo } from "react";
 
-export const US_MARKETING_BASE = "/us";
+/** Empty string — US is the default site at the root. */
+export const US_MARKETING_BASE = "";
 export const JP_MARKETING_BASE = "/jp";
 export const AE_MARKETING_BASE = "/ae";
 export const AE_EN_MARKETING_BASE = "/ae/en";

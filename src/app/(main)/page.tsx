@@ -1,23 +1,22 @@
-import { HeroSection } from "@/components/home/hero-section";
-import { LogoCloud } from "@/components/home/logo-cloud";
-import { TallyPlusSection } from "@/components/home/tally-plus-section";
-import { PlatformSection } from "@/components/home/platform-section";
-import { StatsSection } from "@/components/home/stats-section";
-import { FutureOfEnergySection } from "@/components/home/future-of-energy-section";
-import { TestimonialsSection } from "@/components/home/testimonials-section";
-import { ContactSection } from "@/components/home/contact-section";
+import { HomeBetaQuadGridUS } from "@/components/home/us/home-beta-quad-grid";
+import { HighlightsSectionUS } from "@/components/home/us/highlights-section-us";
+import { MetricsSectionUS } from "@/components/home/us/metrics-section-us";
+import { LogoMarqueeUS } from "@/components/home/us/logo-marquee-us";
+import { USCtaSection } from "@/components/us/cta-section";
 
-export default function Home() {
+export default function USHome() {
   return (
     <>
-      <HeroSection />
-      <LogoCloud />
-      <TallyPlusSection />
-      <PlatformSection />
-      <StatsSection />
-      <FutureOfEnergySection />
-      <TestimonialsSection />
-      <ContactSection />
+      <HomeBetaQuadGridUS />
+      <HighlightsSectionUS />
+      <MetricsSectionUS />
+      <LogoMarqueeUS />
+      <USCtaSection
+        title="Ready for a solution that fits today and tomorrow's marketplace?"
+        description="Even if you already have a back-office solution, it's worth your time to see what a modern global solution looks like. Don't need a full replacement? We can append select modules to your existing system."
+        primaryLabel="Book a demo"
+        secondaryLabel="Contact us"
+      />
     </>
   );
 }

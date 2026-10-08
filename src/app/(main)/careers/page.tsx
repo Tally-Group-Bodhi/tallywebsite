@@ -1,7 +1,13 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
-import { MarketingLink } from "@/components/marketing/marketing-link";
-import { PositionFilter } from "@/components/sections/position-filter";
+import { BambooHrJobs } from "@/components/sections/bamboohr-jobs";
+import { USCtaSection } from "@/components/us/cta-section";
+
+const lifeAtTallyPhotos = Array.from({ length: 12 }, (_, index) => {
+  const filename = String(index + 1).padStart(2, "0");
+  return `/us/life-at-tally/${filename}.png`;
+});
 
 export const metadata: Metadata = {
   title: "Careers",
@@ -11,43 +17,33 @@ export const metadata: Metadata = {
 
 const cultureCards = [
   {
-    icon: "groups",
-    title: "Who we are",
+    icon: "diversity_3",
+    title: "Globally dispersed, deliberately diverse",
     description:
-      "We're a global business with 300+ high-performing people working in Australia, New Zealand, India, Japan, Dubai and the US. Our team members come from many different backgrounds and everyone brings a unique set of skills and experiences to the table.",
-  },
-  {
-    icon: "visibility",
-    title: "Our vision and values",
-    description:
-      "We believe in building better technology that benefits people and the planet. We're guided by our shared values: Quality, Integrity, Collaboration and Ownership. We take our work seriously, rather than ourselves.",
+      "With 300+ people across Australia, New Zealand, India, Japan, Dubai and the U.S., you\u2019ll work with teams that offer different perspectives and experiences. Collaboration across borders is part of how we work, giving you exposure to global challenges and new ideas every day.",
   },
   {
     icon: "trending_up",
-    title: "Grow with us",
+    title: "Fast growth, ambitious future",
     description:
-      "Our people power real change in the world and working with us means using your skills to have a positive impact. We offer a supportive and flexible environment where you'll be able to grow and achieve your personal career goals.",
+      "We\u2019re expanding across regions, products and sectors, creating real opportunities for our people. You\u2019ll be trusted to take on new challenges, develop quickly, and deliver real-world, meaningful impact, playing a role in shaping what comes next in the global utilities transition.",
+  },
+  {
+    icon: "bolt",
+    title: "Powering real change in the world",
+    description:
+      "We believe in building better technology that benefits people and the planet, and our projects support essential services and real-world transformation. Apply your skills to work that matters, with the flexibility and support to deliver outcomes you can be proud of.",
   },
 ];
 
 const perks = [
   { icon: "bolt", text: "Work at the forefront of utility tech" },
-  { icon: "public", text: "Global locations across 6 countries" },
-  { icon: "workspace_premium", text: "Proven career pathways" },
-  { icon: "menu_book", text: "Tailored learning and development" },
-  { icon: "work", text: "Flexible and remote working" },
-  { icon: "payments", text: "Competitive salaries and benefits" },
+  { icon: "public", text: "Global focus on real-world problems" },
+  { icon: "auto_awesome", text: "Access to cutting-edge AI tools and training" },
+  { icon: "menu_book", text: "Tailored learning and proven career pathways" },
+  { icon: "work", text: "Flexible, hybrid working environments" },
+  { icon: "payments", text: "Competitive compensation and benefits" },
 ];
-
-const positions = [
-  { title: "Customer Service Representative", department: "Design", location: "Brisbane, Australia", type: "Full-time" },
-  { title: "Senior Developer", department: "Software Development", location: "Remote", type: "Full-time" },
-  { title: "Customer Success Manager", department: "Customer Success", location: "Remote", type: "Full-time" },
-  { title: "Sales Executive", department: "Sales", location: "Remote", type: "Full-time" },
-  { title: "SEO Marketing Manager", department: "Marketing", location: "Remote", type: "Full-time" },
-];
-
-const locations = ["All locations", "Australia", "New Zealand", "USA", "Japan", "UAE", "India"];
 
 export default function CareersPage() {
   return (
@@ -58,7 +54,7 @@ export default function CareersPage() {
       }}>
         <div className="max-w-[1240px] mx-auto px-8">
           <h1 className="text-[44px] lg:text-[64px] font-light leading-[1.04] tracking-[-0.025em] text-navy">
-            Join our team.
+            Join Our Team.
           </h1>
 
           <p className="mt-[20px] text-[19px] leading-[1.55] text-fg2 max-w-[60ch]">
@@ -66,8 +62,8 @@ export default function CareersPage() {
           </p>
 
           <div className="flex gap-3 mt-[32px]">
-            <Link href="#positions" className="inline-flex items-center gap-2 px-5 py-[11px] rounded-lg text-sm font-medium bg-navy text-white border border-navy hover:bg-navy-dark hover:border-navy-dark transition-all">
-              View open positions <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
+            <Link href="#positions" className="inline-flex items-center px-5 py-[11px] rounded-lg text-sm font-medium bg-navy text-white border border-navy hover:bg-navy-dark hover:border-navy-dark transition-all">
+              View open positions
             </Link>
             <Link href="#culture" className="inline-flex items-center gap-2 px-5 py-[11px] rounded-lg text-sm font-medium bg-transparent text-navy border border-stroke1 hover:bg-bg3 transition-all">
               Life at Tally
@@ -85,7 +81,7 @@ export default function CareersPage() {
               Life at Tally
             </div>
             <h2 className="text-[30px] lg:text-[60px] font-light leading-[1.1] tracking-[-0.02em] text-navy">
-              Make a real impact in the energy sector.
+              Make a real impact in the utility sector.
             </h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[20px]">
@@ -96,6 +92,25 @@ export default function CareersPage() {
                 </div>
                 <h3 className="text-xl font-semibold leading-[1.3] tracking-[-0.01em] text-fg1">{card.title}</h3>
                 <p className="text-sm leading-[1.55] text-fg2 m-0">{card.description}</p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-[40px] lg:mt-[56px] grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-[12px] sm:gap-[14px] lg:gap-[16px]">
+            {lifeAtTallyPhotos.map((src) => (
+              <div
+                key={src}
+                className="relative aspect-square overflow-hidden rounded-xl bg-bg2 border border-stroke1"
+              >
+                <Image
+                  src={src}
+                  alt=""
+                  fill
+                  sizes="(min-width: 1024px) 16vw, (min-width: 768px) 24vw, (min-width: 640px) 32vw, 48vw"
+                  quality={95}
+                  className="object-cover"
+                  loading="lazy"
+                />
               </div>
             ))}
           </div>
@@ -119,7 +134,7 @@ export default function CareersPage() {
           </div>
 
           <div className="bg-white rounded-xl p-[28px] border border-stroke1">
-            <h3 className="text-lg font-semibold text-navy mb-[24px]">What we offer</h3>
+            <h3 className="text-lg font-semibold text-navy mb-[24px]">Our commitment to our people</h3>
             <ul className="flex flex-col gap-[16px]">
               {perks.map((perk) => (
                 <li key={perk.text} className="flex items-center gap-[12px]">
@@ -145,31 +160,43 @@ export default function CareersPage() {
             <h2 className="text-[30px] lg:text-[60px] font-light leading-[1.1] tracking-[-0.02em] text-navy">
               Join us and our growing team.
             </h2>
+            <p className="mt-[16px] text-sm leading-[1.55] text-fg2 m-0 max-w-[52ch]">
+              Roles are listed and managed through our applicant tracking system. Click any role for the full description and to apply.
+            </p>
           </div>
 
-          <PositionFilter positions={positions} locations={locations} />
+          <BambooHrJobs />
+        </div>
+      </section>
+
+      {/* Wide image */}
+      <section className="px-4 sm:px-6 pt-[24px] sm:pt-[32px] pb-0">
+        <div
+          className="relative mx-auto w-full max-w-[1680px] rounded-3xl overflow-hidden bg-bg2 border border-stroke1"
+          style={{ aspectRatio: "3889 / 1392" }}
+        >
+          <Image
+            src="/us/life-at-tally/wide.png"
+            alt=""
+            fill
+            sizes="(min-width: 1680px) 1680px, 100vw"
+            quality={95}
+            className="object-cover"
+            priority
+          />
         </div>
       </section>
 
       {/* CTA */}
-      <section className="relative overflow-hidden py-[96px] bg-navy text-white">
-        <div className="absolute -left-[100px] -bottom-[100px] w-[500px] h-[500px] rounded-full" style={{
-          background: "radial-gradient(circle, rgba(0,210,162,0.18), transparent 60%)"
-        }} />
-        <div className="relative max-w-[1240px] mx-auto px-8 text-center">
-          <h2 className="text-[30px] lg:text-[60px] font-light leading-[1.1] tracking-[-0.02em] text-white">
-            Don&apos;t see the right role? Get in touch.
-          </h2>
-          <p className="mt-[16px] text-lg text-white/75 max-w-[50ch] mx-auto leading-[1.55]">
-            We&apos;re always looking for talented people. Send us your CV and we&apos;ll keep you in mind for future opportunities.
-          </p>
-          <div className="mt-[32px]">
-            <MarketingLink href="/contact" className="inline-flex items-center gap-2 px-6 py-[12px] rounded-lg text-sm font-semibold bg-turquoise text-navy border border-turquoise hover:bg-turquoise-hover hover:border-turquoise-hover transition-all shadow-sm">
-              Contact us <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
-            </MarketingLink>
-          </div>
-        </div>
-      </section>
+      <USCtaSection
+        eyebrow="Join the team"
+        title="Don't see the right role? Get in touch."
+        description="We're always looking for talented people. Send us your CV and we'll be in touch if future opportunities arise."
+        primaryHref="/contact"
+        primaryLabel="Contact us"
+        secondaryHref="/careers#positions"
+        secondaryLabel="View open positions"
+      />
     </>
   );
 }

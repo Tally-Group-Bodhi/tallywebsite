@@ -147,7 +147,7 @@ export function CorporateHeader() {
                           onClick={() => {
                             setLocationOpen(false);
                             if (region.key === "us") {
-                              router.push("/us");
+                              router.push("/");
                               return;
                             }
                             if (region.key === "au") {

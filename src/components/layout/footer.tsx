@@ -133,7 +133,6 @@ function buildJPColumns(href: (path: string) => string): FooterColumn[] {
 export function Footer() {
   const href = useMarketingHref();
   const basePath = useMarketingBasePath();
-  const isAustralia = basePath === "";
   const isJP = basePath === JP_MARKETING_BASE;
   const isUS = basePath === US_MARKETING_BASE;
 
@@ -203,11 +202,6 @@ export function Footer() {
             </ul>
           )}
         </div>
-        {isAustralia && (
-          <p className="mt-[18px] text-xs text-white/55 leading-relaxed max-w-[60ch]">
-            Tally Group acknowledges the Traditional Custodians of the lands on which we work. We pay our respect to their Elders past, present and emerging.
-          </p>
-        )}
       </div>
     </footer>
   );

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { MarketingLink } from "@/components/marketing/marketing-link";
 import { HistoryTimeline } from "@/components/about/history-timeline";
+import { USCtaSection } from "@/components/us/cta-section";
 
 export const metadata: Metadata = {
   title: "About",
@@ -9,139 +9,134 @@ export const metadata: Metadata = {
     "Tally is a world-leading cloud-native software platform and ecosystem enabling decarbonisation, digitisation and decentralisation for energy retailers globally.",
 };
 
+const skippingStoneLinkClassName =
+  "text-navy font-medium hover:text-turquoise transition-colors underline decoration-stroke1 underline-offset-2";
+
+const usHistoryLead = (
+  <>
+    Tally Group formed in 2021, following the merger of leading cloud-based billing
+    solutions provider Agility CIS and fast-growing energy retail SaaS software
+    provider Tally. The Tally Group includes Znalytics (US/Japan) and Webtools Energy
+    (Australia and New Zealand), which were both acquired by Agility CIS in 2020. In
+    May 2022, we rebranded globally as Tally Group. In 2026, Tally Group acquired{" "}
+    <a
+      href="https://skippingstone.com/"
+      target="_blank"
+      rel="noopener noreferrer"
+      className={skippingStoneLinkClassName}
+    >
+      Skipping Stone
+    </a>
+    , an energy consulting firm, marking a key step in global growth. Combining
+    Tally&apos;s technology with Skipping Stone&apos;s market expertise strengthens
+    end-to-end solutions. This expands our reach in the U.S. and Japan, positioning
+    us to help clients navigate change and unlock value in evolving energy markets.
+  </>
+);
+
 const storyCards = [
   {
-    icon: "rocket_launch",
-    title: "Revolutionizing Energy Solutions",
+    icon: "bolt",
+    title: "Empowering the Future of Energy",
     description:
-      "At Tally Group, we put our energy into building world-leading utility technology. We're transforming how people power their homes and businesses by reinventing how energy retailers operate.",
+      "We support utilities, energy retailers, and energy transition providers through technology, expertise, and innovation. By combining leading software solutions with strategic industry knowledge, we help clients adapt to evolving market demands, improve customer outcomes, and achieve sustainable growth in a rapidly changing energy landscape.",
   },
   {
-    icon: "cloud",
-    title: "Cloud-Native SaaS Provider",
+    icon: "hub",
+    title: "End-to-End Utility Solutions",
     description:
-      "As a cloud-native SaaS provider with extensive experience and clients worldwide, we're well-placed to help businesses thrive in a rapidly changing market.",
+      "With software and solutions successfully implemented across global energy markets, we provide end-to-end customer experience and customer management solutions for utility companies, energy retailers, and energy transition product and service providers. Our platform supports the full customer lifecycle, from acquisition and onboarding to billing, payments, service, and retention.",
+  },
+  {
+    icon: "psychology",
+    title: "Strategic Advisory and Industry Expertise",
+    description:
+      "Skipping Stone, a wholly owned Tally Group subsidiary, complements our technology solutions with industry-leading consulting expertise. Our team helps organizations navigate change through strategy development, product innovation, risk management, market research, training, competitive analysis, and execution of growth initiatives, enabling clients to succeed in rapidly evolving energy markets.",
   },
   {
     icon: "public",
-    title: "Empowering Customers Globally",
+    title: "Global Reach. Proven Results.",
     description:
-      "We offer a comprehensive suite of innovative billing, digital and analytics solutions designed to meet globally diverse market and regulatory requirements, empower customers and reduce cost-to-serve.",
-  },
-  {
-    icon: "lightbulb",
-    title: "Innovation in Changing Landscapes",
-    description:
-      "We're committed to innovating in a competitive landscape amidst climate change, grid transformation, and new technologies despite constraints from legacy tech and lackluster service.",
-  },
-  {
-    icon: "handshake",
-    title: "Uniting Energy Solutions Worldwide",
-    description:
-      "Tally Group formed in 2021, following the merger of leading cloud-based billing solutions provider Agility CIS and fast-growing energy retail SaaS software provider Tally.",
-  },
-  {
-    icon: "language",
-    title: "Global Reach and Impact",
-    description:
-      "We combine global outlook with local focus, and our team operates from locations in Australia, New Zealand, Japan, India, Dubai and the United States.",
+      "Trusted by energy retailers and energy service providers worldwide, we deliver proven software and consulting solutions in some of the world\u2019s most complex energy markets. Our global team combines deep industry expertise with local market knowledge to help clients transform operations, improve customer experiences, and accelerate growth.",
   },
 ];
 
-const utilityCommitments = [
-  { icon: "bar_chart", text: "Accurate, scalable billing" },
-  { icon: "trending_down", text: "Reduced cost to serve" },
-  { icon: "lightbulb", text: "Fast, cost-effective innovation" },
-  { icon: "verified_user", text: "Trusted implementation partner" },
-  { icon: "group", text: "Reduced churn, better engagement" },
-  { icon: "lock", text: "Best practice in data and tech" },
+const aboutStats = [
+  { num: "50", unit: "+", label: "Clients" },
+  { num: "300", unit: "+", label: "Consulting Clients" },
+  { num: "5", unit: "M+", label: "Meter Points" },
+  { num: "370", unit: "+", label: "Employees" },
+];
+
+const clientCommitments = [
+  { icon: "tune", text: "Robust and configurable solutions" },
+  { icon: "auto_awesome", text: "Leading-edge technology and AI that matters" },
+  { icon: "schedule", text: "On time, on budget implementations" },
+  { icon: "support_agent", text: "Responsive, proactive, high-impact support" },
+  { icon: "alt_route", text: "Client-driven development pipelines" },
+  { icon: "handshake", text: "Enduring partnerships built on shared success" },
+];
+
+const customerCommitments = [
+  { icon: "stars", text: "An exceptional end-to-end customer experience" },
+  { icon: "smart_toy", text: "Personalized, AI-powered self-service automation" },
+  { icon: "rocket_launch", text: "Access to the latest in future-ready technology" },
+  { icon: "receipt_long", text: "Accurate billing with payment options" },
+  { icon: "psychology", text: "Knowledge-enabled customer service reps" },
+  { icon: "chat", text: "Clear and useful communications" },
 ];
 
 const peopleCommitments = [
   { icon: "bolt", text: "Work at the forefront of utility tech" },
-  { icon: "public", text: "Global locations" },
-  { icon: "workspace_premium", text: "Proven career pathways" },
-  { icon: "menu_book", text: "Tailored learning and development" },
-  { icon: "work", text: "Flexible working" },
-  { icon: "payments", text: "Competitive salaries" },
-];
-
-const consumerCommitments = [
-  { icon: "favorite", text: "Personalised experience" },
-  { icon: "chat", text: "Straightforward communications" },
-  { icon: "smartphone", text: "Multi-channel support" },
-  { icon: "target", text: "Digital-first strategy" },
-  { icon: "apartment", text: "Simplify market participation" },
-  { icon: "location_on", text: "Build trust with utility providers" },
-];
-
-const aboutStats = [
-  { num: "110", unit: "+", label: "Clients globally" },
-  { num: "450", unit: "+", label: "Global staff" },
-  { num: "4", unit: " mil +", label: "Meter points" },
-  { num: "200", unit: "+", label: "5-star reviews" },
-];
-
-const supportingTestimonials = [
-  {
-    name: "Anika Phan",
-    role: "Head of Customer Operations, Alinta Energy",
-    initials: "AP",
-    quote:
-      "Glass Vision cut our average handle time by 38 seconds in the first month. The platform speaks energy out of the box \u2014 NMIs, embedded networks, life-support flags.",
-  },
-  {
-    name: "James Wong",
-    role: "Head of Technology, Energy Locals",
-    initials: "JW",
-    quote:
-      "We migrated 400k accounts to Tally in eight months. The team is responsive, pragmatic, and they actually understand the NEM.",
-  },
-  {
-    name: "Priya Sharma",
-    role: "GM Customer Operations, Momentum Energy",
-    initials: "PS",
-    quote:
-      "Tally took our billing from a constant headache to a quiet utility. We\u2019ve never trusted a vendor more with our customer data.",
-  },
+  { icon: "public", text: "Global focus on real-world problems" },
+  { icon: "smart_toy", text: "Access to cutting-edge AI tools and training" },
+  { icon: "menu_book", text: "Tailored learning and proven career pathways" },
+  { icon: "work", text: "Flexible, hybrid working environments" },
+  { icon: "payments", text: "Competitive compensation and benefits" },
 ];
 
 const leaders = [
   {
     name: "Andrew Duncan",
     role: "Chief Executive Officer",
-    bio: "Andrew is the Founder and Chairman of Tally and was appointed CEO in 2022 following the merger that formed Tally Group. With more than 30 years\u2019 experience in the Australian energy market, he has played a key role in driving technology-led transformation across retail energy. Andrew founded Serviceworks and led its successful sale to Computershare in 2011, establishing the first bureau provider for Australia\u2019s deregulated energy market. A recognised founder and investor, he brings deep industry insight and a pragmatic, execution-focused approach, driven by a founder\u2019s mindset and a focus on simplifying operations and improving customer outcomes.",
-    photo: "Andrew.jpg",
+    bio: "Andrew is the Founder and Chairman of Tally and was appointed CEO in 2022 following the merger that formed Tally Group. With more than 30 years of experience in the Australian energy market, he has played a key role in driving technology-led transformation across the retail energy sector. Andrew founded Serviceworks and led its successful sale to Computershare in 2011, establishing the first BPO service provider for Australia\u2019s deregulated energy market. A recognized founder and investor, he brings deep industry expertise and a practical, execution-focused leadership style, with a strong emphasis on simplifying operations and improving customer outcomes.",
+    photoSrc: "/corporate/Andrew.jpg",
   },
   {
     name: "Travis Lehman",
     role: "Chief Operating Officer",
-    bio: "Travis joined Agility CIS in 2019 as Transformation Director, leading the Value Creation Programme including M&A through a pivotal period of growth and integration. With experience spanning strategy, transactions and execution, he specialises in scaling technology businesses in complex global markets. Prior to Tally, Travis spent about a decade with Deloitte Consulting in the M&A practice in San Francisco and holds an MBA from Stanford Graduate School of Business. He brings a calm, solutions-focused approach, translating strategy into disciplined execution to drive sustainable growth.",
-    photo: "Travis Lehman.jpg",
+    bio: "Travis joined Agility CIS in 2019 as Transformation Director, leading the Value Creation Program including M&A through a pivotal period of growth and integration. With experience spanning strategy, transactions, and execution, he specializes in scaling technology businesses in complex global markets. Prior to Tally, Travis spent about a decade with Deloitte Consulting in the M&A practice in San Francisco and holds an MBA from Stanford Graduate School of Business. He brings a calm, solutions-focused approach, translating strategy into disciplined execution to drive sustainable growth.",
+    photoSrc: "/corporate/Travis Lehman.jpg",
   },
   {
-    name: "Janet Le",
-    role: "Chief Commercial Officer",
-    bio: "Bringing more than 14 years\u2019 experience leading commercial strategy, growth and value creation across the technology sector, Janet joined Tally\u2019s Executive team in 2025. She has held senior roles at Compass Education and SEEK Limited, where she led global expansion, portfolio management and M&A activity across complex, multi-market environments. Janet began her career at PwC in Audit and brings a strong commercial lens and collaborative, people-first leadership style. She focuses on building scalable commercial capability to support global growth and deliver lasting value for clients.",
-    photo: "Janet Le.jpg",
+    name: "Peter Weigand",
+    role: "Chief Growth Officer",
+    bio: "As Tally\u2019s Chief Growth Officer, Peter leads Tally\u2019s expansion across the U.S. and Japan markets. He has been instrumental in growing energy companies globally for many years, serving as CEO of four energy companies prior to joining Tally, and having held board roles across a number of energy startups. In addition to his role as CGO, he is also CEO of Skipping Stone, Tally\u2019s wholly owned energy consulting business. He focuses on accelerating Tally\u2019s global growth by developing relationships that leverage both consulting services and Tally\u2019s market leading solutions.",
+    photoSrc: "/us/Peter Weigand.jpg",
   },
   {
     name: "Eric Yilmaz",
     role: "Chief Technology Officer",
-    bio: "Eric joined Tally in 2023, bringing more than 20 years\u2019 experience across technology strategy, digital platforms, infrastructure, operations and product development. Prior to Tally, he was CTO at Sorted and held senior innovation and technology roles at EY, working at the intersection of emerging technology and enterprise scale. He leads Tally\u2019s global technology function with a focus on modern engineering, cloud architecture and applied AI, driving quality, security and speed to value. Eric is deeply focused on building high-performing teams and future-ready platforms.",
-    photo: "Eric Yilmaz.jpg",
+    bio: "Eric joined Tally in 2023, bringing more than 20 years of experience across technology strategy, digital platforms, infrastructure, operations, and product development. Prior to joining Tally, he served as CTO at Sorted and held senior innovation and technology leadership roles at EY, working at the intersection of emerging technologies and enterprise-scale transformation. He leads Tally\u2019s global technology organization, focusing on modern engineering, cloud architecture, and applied AI to drive quality, security, and speed to value. Eric is focused on building high-performing teams and scalable, future-ready platforms.",
+    photoSrc: "/corporate/Eric Yilmaz.jpg",
   },
   {
-    name: "Roger Barnes",
-    role: "Chief Product Officer",
-    bio: "With more than 15 years\u2019 experience across the energy and utilities sector, Roger is Tally\u2019s Global CPO. Having previously served as President for Australia and New Zealand, Roger led strong regional growth and product evolution and now specialises in driving innovation at the intersection of technology, product and market change. Roger has held several executive roles, including CEO of Billcap and Managing Director of TallyIT and SleevesUp, as well as a variety of senior delivery and product roles across Energy, Telecommunications, and Cyber. He shapes Tally\u2019s global product vision and roadmap to deliver smarter operations and improved customer outcomes.",
-    photo: "Roger Barnes.jpg",
+    name: "Michael Harrison",
+    role: "Director of Business Development North America",
+    bio: "Michael joined Tally in 2026 as Director of Business Development, North America, bringing more than 15 years of experience in energy markets and commercial leadership. He previously led sales at Gold Star Energy and served as President of EDGE On Demand, a CRM and energy analytics platform for energy procurement. At EDGE, he spearheaded end-to-end sales, product roadmap development, and business operations, connecting commercial priorities with tools that supported energy buyers and partners. Michael combines deep market knowledge with a practical, relationship-focused approach to helping clients address complex business needs.",
+    photoSrc: "/us/Michael Harrison.jpg",
   },
   {
-    name: "Timothy Szakacs",
-    role: "Executive General Manager and President, ANZ",
-    bio: "Tim joined Tally as Global Chief Product Officer in 2021 before being appointed Executive General Manager and President for Australia and New Zealand. An experienced executive and Company Director, he brings deep expertise across product leadership, operations and market development, with strong exposure to international energy markets. He leads performance and growth across ANZ with a steady, pragmatic approach, ensuring Tally\u2019s solutions meet the complex regulatory and operational demands of utilities in rapidly evolving markets.",
-    photo: "Tim Szakacs.jpg",
+    name: "Raine Figaro",
+    role: "Delivery Lead",
+    bio: "Raine joined Tally as U.S. Delivery Lead in 2023, bringing more than 20 years\u2019 experience across global program, project and portfolio delivery. She has led large-scale technology and transformation initiatives at organizations including Amazon Web Services, Capital One, Microsoft and Verizon, with a strong focus on execution, stakeholder alignment and customer outcomes. Raine is known for building high-performing teams and fostering a collaborative, growth-focused culture, with a leadership style grounded in trust, mentorship and delivery excellence.",
+    photoSrc: "/us/Raine Figaro.jpg",
+  },
+  {
+    name: "Chris Bates",
+    role: "Product Manager | Product & Client",
+    bio: "Chris joined Tally in 2012 and brings more than 14 years\u2019 experience designing enterprise-scale billing and regulatory solutions for the energy sector. He has held roles across engineering and architecture, and now helps shape product direction and delivery for Tally\u2019s U.S. platforms. Chris combines deep technical expertise with a practical understanding of client needs, driving solutions that are robust, scalable and aligned to complex market requirements.",
+    photoSrc: "/us/Chris Bates.jpg",
   },
 ];
 
@@ -154,28 +149,42 @@ export default function AboutPage() {
       }}>
         <div className="max-w-[1240px] mx-auto px-8">
           <h1 className="text-[44px] lg:text-[64px] font-light leading-[1.04] tracking-[-0.025em] text-navy">
-            Intelligent utilitech<br />solutions.
+            Reduce Cost-to-Serve.
+            <br />
+            Modernize Operations.
+            <br />
+            Accelerate Growth.
           </h1>
 
-          <p className="mt-[20px] text-[19px] leading-[1.55] text-fg2 max-w-[60ch]">
-            A world-leading cloud-native software platform and ecosystem enabling decarbonisation, digitisation and decentralisation for energy retailers globally.
-          </p>
+          <div className="mt-[20px] text-[19px] leading-[1.55] text-fg2 max-w-[60ch] flex flex-col gap-[16px]">
+            <p className="m-0">
+              Tally Group delivers innovative software solutions to energy
+              retailers and emerging energy service providers.
+            </p>
+            <p className="m-0">
+              With Tally+, businesses can bring customer management, billing,
+              payments, and workflow automation together in one scalable
+              platform designed for growth.
+            </p>
+          </div>
         </div>
       </section>
 
       {/* Who we are */}
-      <section id="who-we-are" className="scroll-mt-[88px] py-[96px] border-b border-stroke1">
+      <section id="who-we-are" className="scroll-mt-[88px] py-[96px]">
         <div className="max-w-[1240px] mx-auto px-8">
-          <div className="mb-[48px] max-w-[720px]">
+          <div className="mb-[48px] max-w-[1100px]">
             <div className="text-xs font-medium text-fg2 uppercase tracking-[0.1em] mb-[12px] inline-flex items-center gap-2">
               <span className="w-[18px] h-[1px] bg-turquoise inline-block" />
               Who we are
             </div>
-            <h2 className="text-[30px] lg:text-[60px] font-light leading-[1.1] tracking-[-0.02em] text-navy">
-              Energizing innovation in utility technology and energy retail operations.
+            <h2 className="text-[30px] lg:text-[48px] font-light leading-[1.15] tracking-[-0.02em] text-navy">
+              Enabling the Future of Retail Energy
+              <br />
+              Smarter • Faster • Better
             </h2>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[20px]">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-[20px]">
             {storyCards.map((card) => (
               <div key={card.title} className="bg-bg2 rounded-xl p-[28px] flex flex-col gap-[14px]">
                 <div className="w-10 h-10 rounded-[10px] bg-[#F0F9FF] border border-navy/[0.08] grid place-items-center text-navy">
@@ -190,205 +199,166 @@ export default function AboutPage() {
       </section>
 
       {/* History Timeline */}
-      <HistoryTimeline />
+      <HistoryTimeline
+        showDivider={false}
+        compact
+        eyebrow="History"
+        heading="A journey of innovation and growth."
+        headerClassName="max-w-[1100px]"
+        lead={usHistoryLead}
+        entries={[
+          { year: "2018", title: "Tally founded" },
+          { year: "2020", title: "Global expansion" },
+          { year: "2021", title: "Tally Group is formed" },
+          { year: "2023", title: "Strategic investment" },
+          { year: "2024", title: "Alinta CORE platform" },
+          { year: "2026", title: "Skipping Stone acquisition" },
+        ]}
+      />
 
-      {/* Metrics */}
-      <section className="py-[96px] border-b border-stroke1 bg-bg2">
-        <div className="max-w-[1240px] mx-auto px-8 grid grid-cols-1 lg:grid-cols-[1fr_1fr] gap-[48px] lg:gap-[72px] items-center">
-          <div>
+      {/* Breadth of experience */}
+      <section className="py-[96px]">
+        <div className="max-w-[1240px] mx-auto px-8">
+          <div className="max-w-[820px]">
             <div className="text-xs font-medium text-fg2 uppercase tracking-[0.1em] mb-[12px] inline-flex items-center gap-2">
               <span className="w-[18px] h-[1px] bg-turquoise inline-block" />
               Unparalleled breadth of experience
             </div>
-            <h2 className="text-[30px] lg:text-[60px] font-light leading-[1.1] tracking-[-0.02em] text-navy">
-              More new energy expertise than any other provider in Australia.
-            </h2>
-
-            <div className="grid grid-cols-2 gap-x-[48px] gap-y-[40px] mt-[56px]">
-              {aboutStats.map((stat) => (
-                <div key={stat.label}>
-                  <div className="text-[48px] lg:text-[56px] font-normal tracking-[-0.03em] leading-none tabular-nums text-navy">
-                    {stat.num}
-                    <span className="text-turquoise">{stat.unit}</span>
-                  </div>
-                  <div className="mt-[14px] text-[14px] leading-[1.5] text-fg2">
-                    {stat.label}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="relative aspect-[640/520] rounded-2xl overflow-hidden">
-            <Image
-              src="/about-metrics.png"
-              alt="Energy infrastructure"
-              fill
-              className="object-cover"
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* Leadership */}
-      <section id="leadership" className="scroll-mt-[88px] py-[96px] border-b border-stroke1" style={{
-        background: "linear-gradient(to bottom, #F9F9FB 0%, #FFFFFF 100%)"
-      }}>
-        <div className="max-w-[1240px] mx-auto px-8">
-          <div id="global-leadership" className="scroll-mt-[88px] mb-[48px] max-w-[720px]">
-            <div className="text-xs font-medium text-fg2 uppercase tracking-[0.1em] mb-[12px] inline-flex items-center gap-2">
-              <span className="w-[18px] h-[1px] bg-turquoise inline-block" />
-              Global Leadership
-            </div>
-            <h2 className="text-[30px] lg:text-[60px] font-light leading-[1.1] tracking-[-0.02em] text-navy">
-              Tally Group leadership.
+            <h2 className="text-[30px] lg:text-[48px] font-light leading-[1.15] tracking-[-0.02em] text-navy">
+              Global Scale. Proven Results.
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[20px]">
-            {leaders.map((leader) => (
-              <article
-                key={leader.name}
-                className="bg-white border border-stroke1 rounded-xl p-[24px] flex flex-col gap-[16px] transition-all hover:shadow-[0_4px_16px_rgba(0,0,0,0.06)]"
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-[16px] mt-[56px]">
+            {aboutStats.map((stat) => (
+              <div
+                key={stat.label}
+                className="bg-bg2 rounded-2xl px-[28px] py-[40px] lg:py-[56px]"
               >
-                <div className="flex items-center gap-[14px]">
-                  <div className="w-[88px] h-[88px] rounded-full overflow-hidden shrink-0 border border-stroke1 bg-bg2">
-                    <Image
-                      src={`/corporate/${leader.photo}`}
-                      alt={`Portrait of ${leader.name}`}
-                      width={88}
-                      height={88}
-                      className="w-full h-full object-cover object-[center_top]"
-                      loading="lazy"
-                    />
-                  </div>
-                  <div>
-                    <h3 className="m-0 mb-[2px] text-base font-semibold text-navy tracking-tight leading-tight">
-                      {leader.name}
-                    </h3>
-                    <p className="m-0 text-sm text-fg2">
-                      {leader.role}
-                    </p>
-                  </div>
+                <div className="text-[48px] lg:text-[56px] font-normal tracking-[-0.03em] leading-none tabular-nums text-navy">
+                  {stat.num}
+                  <span className="text-turquoise">{stat.unit}</span>
                 </div>
-                <p className="m-0 text-sm leading-[1.55] text-fg2">
-                  {leader.bio}
+                <p className="mt-[20px] text-[14px] leading-[1.5] text-fg2 m-0">
+                  {stat.label}
                 </p>
-              </article>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Testimonial */}
-      <section className="py-[96px] border-b border-stroke1">
+      {/* Leadership */}
+      <section id="leadership" className="scroll-mt-[88px] py-[96px]" style={{
+        background: "linear-gradient(to bottom, #F9F9FB 0%, #FFFFFF 100%)"
+      }}>
         <div className="max-w-[1240px] mx-auto px-8">
-          <div className="max-w-[720px] mb-[48px]">
+          <div className="mb-[48px] max-w-[1100px]">
             <div className="text-xs font-medium text-fg2 uppercase tracking-[0.1em] mb-[12px] inline-flex items-center gap-2">
               <span className="w-[18px] h-[1px] bg-turquoise inline-block" />
-              What our partners say
+              U.S. Leadership
             </div>
-            <h2 className="text-[30px] lg:text-[60px] font-light leading-[1.1] tracking-[-0.02em] text-navy">
-              Trusted by those who matter.
+            <h2 className="text-[30px] lg:text-[48px] font-light leading-[1.15] tracking-[-0.02em] text-navy">
+              Leaders shaping growth and delivery of Tally+ across the United States
             </h2>
+            <p className="mt-[16px] text-sm leading-[1.55] text-fg2 m-0 max-w-[60ch]">
+              Bringing together deep industry expertise and a shared commitment to growth, innovation, and execution at scale.
+            </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-[1.15fr_1fr] gap-[20px] items-stretch">
-            <div className="bg-bg2 rounded-xl p-[32px] lg:p-[40px] flex flex-col gap-[24px]">
-              <blockquote className="m-0 p-0 text-[20px] lg:text-[26px] leading-[1.4] text-fg1 tracking-[-0.005em] font-medium">
-                <span className="text-turquoise text-[48px] font-bold leading-none block mb-3">&ldquo;</span>
-                They make the complex simple and helped us achieve better business outcomes.
-              </blockquote>
-              <div className="flex items-center gap-[14px] mt-auto">
-                <div className="w-11 h-11 rounded-full text-white text-sm font-semibold grid place-items-center" style={{
-                  background: "linear-gradient(135deg, #2C365D, #1E2840)"
-                }}>
-                  DH
-                </div>
-                <div>
-                  <div className="text-sm font-semibold text-fg1">David Hayes</div>
-                  <div className="text-[13px] text-fg2">CEO, Next Business Energy</div>
-                </div>
-              </div>
-            </div>
-
-            <div className="flex flex-col gap-[20px]">
-              {supportingTestimonials.map((t) => (
-                <div
-                  key={t.name}
-                  className="bg-bg2 rounded-xl p-[24px] lg:p-[28px] flex flex-col gap-[16px] flex-1"
-                >
-                  <blockquote className="m-0 p-0 text-[15px] leading-[1.55] text-fg1 font-medium">
-                    <span className="text-turquoise text-[28px] font-bold leading-none block mb-1">&ldquo;</span>
-                    {t.quote}
-                  </blockquote>
-                  <div className="flex items-center gap-[12px] mt-auto">
-                    <div
-                      className="w-9 h-9 rounded-full grid place-items-center text-white text-[11px] font-semibold shrink-0"
-                      style={{
-                        background:
-                          "linear-gradient(135deg, #2C365D, #1E2840)",
-                      }}
-                    >
-                      {t.initials}
-                    </div>
-                    <div>
-                      <div className="text-[13px] font-semibold text-fg1">
-                        {t.name}
-                      </div>
-                      <div className="text-[12px] text-fg2">{t.role}</div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[20px]">
+            {leaders.map((leader) => (
+              <LeaderCard
+                key={`${leader.name}-${leader.role}`}
+                leader={leader}
+                photoSrc={leader.photoSrc}
+              />
+            ))}
           </div>
         </div>
       </section>
 
       {/* Commitments */}
-      <section id="mission-values" className="scroll-mt-[88px] py-[96px] border-b border-stroke1" style={{
+      <section id="mission-values" className="scroll-mt-[88px] py-[96px]" style={{
         background: "linear-gradient(to bottom, #F9F9FB 0%, #FFFFFF 100%)"
       }}>
         <div className="max-w-[1240px] mx-auto px-8">
-          <div className="mb-[48px] max-w-[720px]">
+          <div className="mb-[48px] max-w-[1100px]">
             <div className="text-xs font-medium text-fg2 uppercase tracking-[0.1em] mb-[12px] inline-flex items-center gap-2">
               <span className="w-[18px] h-[1px] bg-turquoise inline-block" />
-              Our commitments
+              Mission & Values
             </div>
-            <h2 className="text-[30px] lg:text-[60px] font-light leading-[1.1] tracking-[-0.02em] text-navy">
-              What we stand for.
+            <h2 className="text-[30px] lg:text-[48px] font-light leading-[1.15] tracking-[-0.02em] text-navy">
+              Committed to our clients, the customers they serve, and our employees.
             </h2>
+            <p className="mt-[20px] text-[17px] leading-[1.7] text-fg2 m-0 max-w-[68ch]">
+              Our values guide every decision we make, shaping how we deliver results, build trust, and create opportunities for growth.
+            </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-[40px]">
-            <CommitmentColumn title="Our commitment to utilities" items={utilityCommitments} />
+            <CommitmentColumn title="Our commitment to clients" items={clientCommitments} />
+            <CommitmentColumn title={"Our commitment to clients\u2019 customers"} items={customerCommitments} />
             <CommitmentColumn title="Our commitment to our people" items={peopleCommitments} />
-            <CommitmentColumn title="Our commitment to consumers" items={consumerCommitments} />
           </div>
         </div>
       </section>
 
       {/* CTA */}
-      <section className="relative overflow-hidden py-[96px] bg-navy text-white">
-        <div className="absolute -left-[100px] -bottom-[100px] w-[500px] h-[500px] rounded-full" style={{
-          background: "radial-gradient(circle, rgba(0,210,162,0.18), transparent 60%)"
-        }} />
-        <div className="relative max-w-[1240px] mx-auto px-8 text-center">
-          <h2 className="text-[30px] lg:text-[60px] font-light leading-[1.1] tracking-[-0.02em] text-white">
-            Find out how Tally Group can help your business.
-          </h2>
-          <p className="mt-[16px] text-lg text-white/75 max-w-[50ch] mx-auto leading-[1.55]">
-            Book a demo, ask a question, or just say hello.
-          </p>
-          <div className="mt-[32px]">
-            <MarketingLink href="/contact" className="inline-flex items-center gap-2 px-6 py-[12px] rounded-lg text-sm font-semibold bg-turquoise text-navy border border-turquoise hover:bg-turquoise-hover hover:border-turquoise-hover transition-all shadow-sm">
-              Request a demo <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
-            </MarketingLink>
-          </div>
-        </div>
-      </section>
+      <USCtaSection
+        title="Find out how Tally Group can help your business."
+        description="Book a demo, ask a question, or just say hello."
+        primaryLabel="Request a demo"
+      />
     </>
+  );
+}
+
+type LeaderProfile = {
+  name: string;
+  role: string;
+  bio: string;
+  photo?: string;
+};
+
+function LeaderCard({
+  leader,
+  photoSrc,
+}: {
+  leader: LeaderProfile;
+  photoSrc?: string;
+}) {
+  const photo = photoSrc ? (
+    <div className="w-[88px] h-[88px] rounded-full overflow-hidden shrink-0 border border-stroke1 bg-bg2">
+      <Image
+        src={photoSrc}
+        alt={`Portrait of ${leader.name}`}
+        width={88}
+        height={88}
+        className="w-full h-full object-cover object-[center_top]"
+        loading="lazy"
+      />
+    </div>
+  ) : (
+    <div
+      className="w-[88px] h-[88px] rounded-full shrink-0 border border-stroke1 bg-bg2"
+      aria-hidden
+    />
+  );
+
+  return (
+    <article className="bg-white border border-stroke1 rounded-xl p-[24px] flex flex-col gap-[16px] transition-all hover:shadow-[0_4px_16px_rgba(0,0,0,0.06)]">
+      <div className="flex items-center gap-[14px]">
+        {photo}
+        <div>
+          <h3 className="m-0 mb-[2px] text-base font-semibold text-navy tracking-tight leading-tight">
+            {leader.name}
+          </h3>
+          <p className="m-0 text-sm text-fg2">{leader.role}</p>
+        </div>
+      </div>
+      <p className="m-0 text-sm leading-[1.55] text-fg2">{leader.bio}</p>
+    </article>
   );
 }
 
