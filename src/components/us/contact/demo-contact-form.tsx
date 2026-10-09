@@ -5,8 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 
-/** Destination inbox for US contact form submissions. */
-export const US_CONTACT_FORM_RECIPIENT = "contact_us@tally-group.com";
+const WEB3FORMS_ACCESS_KEY = "0dca3cd5-57c1-47be-bbc9-38a098dbd137";
 
 const inquiryTypes = ["demo", "sales", "general", "partner"] as const;
 
@@ -107,11 +106,6 @@ export function DemoContactForm() {
   const onSubmit = async (data: FormData) => {
     setSubmitError(null);
 
-    if (data.botcheck) {
-      reset();
-      return;
-    }
-
     const inquiryLabels: Record<FormData["inquiryType"], string> = {
       demo: "Request a Demo",
       sales: "Contact Sales",
@@ -129,40 +123,39 @@ export function DemoContactForm() {
       .filter(Boolean)
       .join(" / ");
 
-    const res = await fetch(
-      `https://formsubmit.co/ajax/${US_CONTACT_FORM_RECIPIENT}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        body: JSON.stringify({
-          _subject: `US Contact: ${inquiryLabels[data.inquiryType]}`,
-          _replyto: data.workEmail,
-          _template: "table",
-          "Inquiry type": inquiryLabels[data.inquiryType],
-          "First name": data.firstName,
-          "Last name": data.lastName,
-          Company: data.companyName,
-          "Work email": data.workEmail,
-          Phone: data.phone,
-          "Job title": data.jobTitle || "(not provided)",
-          "Solutions of interest": solutions,
-          Message: data.message || "(not provided)",
-          "Marketing opt-in": data.marketingOptIn ? "Yes" : "No",
-        }),
+    const res = await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
       },
-    );
+      body: JSON.stringify({
+        access_key: WEB3FORMS_ACCESS_KEY,
+        subject: `US Contact: ${inquiryLabels[data.inquiryType]}`,
+        from_name: `${data.firstName} ${data.lastName}`,
+        email: data.workEmail,
+        botcheck: data.botcheck ?? false,
+        "Inquiry type": inquiryLabels[data.inquiryType],
+        "First name": data.firstName,
+        "Last name": data.lastName,
+        Company: data.companyName,
+        "Work email": data.workEmail,
+        Phone: data.phone,
+        "Job title": data.jobTitle || "(not provided)",
+        "Solutions of interest": solutions,
+        Message: data.message || "(not provided)",
+        "Marketing opt-in": data.marketingOptIn ? "Yes" : "No",
+      }),
+    });
 
     const json = (await res.json().catch(() => null)) as {
-      success?: string | boolean;
+      success?: boolean;
       message?: string;
     } | null;
 
-    if (!res.ok || !json || json.success === "false" || json.success === false) {
+    if (!res.ok || !json?.success) {
       setSubmitError("Something went wrong. Please try again in a moment.");
-      throw new Error("FormSubmit submission failed");
+      throw new Error("Web3Forms submission failed");
     }
     reset();
   };
