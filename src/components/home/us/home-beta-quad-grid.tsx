@@ -128,7 +128,8 @@ function getDesktopHoverSnapshot() {
 }
 
 function getDesktopHoverServerSnapshot() {
-  return true;
+  // Default to touch-safe layout on SSR so iPad/Chrome don't flash desktop hover UI.
+  return false;
 }
 
 function useIsDesktopHover() {
@@ -166,7 +167,7 @@ function SubItemRows({
             strokeWidth={1.75}
             aria-hidden
           />
-          <span className="min-w-0">{label}</span>
+          <span className="min-w-0 break-words text-pretty">{label}</span>
         </div>
       ))}
     </div>
@@ -180,22 +181,36 @@ export function HomeBetaQuadGridUS() {
   const touchMode = !isDesktopHover;
 
   return (
-    <section className="relative h-[100dvh] flex flex-col bg-white pt-[84px] px-4 sm:px-6 pb-4 sm:pb-6">
-      <div className="px-2 py-4 sm:py-5 lg:py-6 text-center">
-        <h1 className="flex flex-wrap items-end justify-center gap-x-3 sm:gap-x-4 gap-y-2 text-[24px] sm:text-[36px] lg:text-[52px] font-light leading-none tracking-[-0.015em] text-navy">
+    <section
+      className={`relative flex flex-col bg-white pt-[84px] px-4 sm:px-6 pb-4 sm:pb-6 ${
+        touchMode
+          ? "min-h-[100dvh] h-auto lg:h-[100dvh]"
+          : "h-[100dvh]"
+      }`}
+    >
+      <div className="px-1 sm:px-2 py-2.5 sm:py-4 lg:py-6 shrink-0">
+        <h1 className="mx-auto flex w-full max-w-[36rem] md:max-w-[44rem] lg:max-w-none flex-nowrap items-start lg:items-end justify-center gap-x-2 sm:gap-x-3 lg:gap-x-4 text-[12px] leading-[1.25] min-[400px]:text-[13px] sm:text-[18px] md:text-[24px] lg:text-[52px] lg:leading-none font-light tracking-[-0.015em] text-navy">
           <Image
             src="/logos/TallyPlus.svg"
             alt="Tally+"
             width={205}
             height={75}
             priority
-            className="h-[1em] w-auto shrink-0"
+            className="mt-[0.1em] lg:mt-0 h-[0.9em] lg:h-[1em] w-auto shrink-0"
           />
-          <span>{US_HOME_HEADLINE}</span>
+          <span className="min-w-0 flex-1 lg:flex-none text-left text-pretty lg:text-center">
+            {US_HOME_HEADLINE}
+          </span>
         </h1>
       </div>
 
-      <div className="relative flex-1 min-h-0 rounded-[20px] overflow-hidden">
+      <div
+        className={`relative w-full rounded-[20px] overflow-hidden ${
+          touchMode
+            ? "min-h-[520px] h-[min(68dvh,720px)] sm:min-h-[560px] lg:flex-1 lg:min-h-0 lg:h-auto"
+            : "flex-1 min-h-0"
+        }`}
+      >
         <Image
           src="/hero-bg.jpg"
           alt=""
@@ -218,7 +233,7 @@ export function HomeBetaQuadGridUS() {
           }}
         />
 
-        <div className="relative h-full w-full grid grid-cols-2 grid-rows-2 gap-[6px] p-[6px]">
+        <div className="relative z-10 h-full w-full grid grid-cols-2 grid-rows-2 gap-[6px] p-[6px]">
           {quadrants.map((q) => {
             const isActive = !touchMode && activeId === q.id;
             const isDimmed = !touchMode && activeId !== null && !isActive;
@@ -235,15 +250,21 @@ export function HomeBetaQuadGridUS() {
                 }}
                 animate={{ opacity: isDimmed ? 0.55 : 1 }}
                 transition={{ duration: 0.35, ease: "easeOut" }}
-                className="relative overflow-hidden rounded-[14px] border border-white/25 backdrop-blur-md shadow-[0_24px_60px_rgba(0,0,0,0.4)]"
+                className="relative min-h-0 overflow-hidden rounded-[14px] border border-white/25 shadow-[0_24px_60px_rgba(0,0,0,0.4)] [contain:paint]"
                 style={{
-                  backgroundColor: q.tint,
                   cursor: isDesktopHover ? "pointer" : "default",
                 }}
               >
+                {/* Blur on a sibling layer — WebKit won't clip overflow if
+                    backdrop-filter shares the same element as overflow:hidden. */}
+                <div
+                  aria-hidden
+                  className="absolute inset-0 rounded-[14px] backdrop-blur-md"
+                  style={{ backgroundColor: q.tint }}
+                />
                 <motion.div
                   aria-hidden
-                  className="absolute inset-0 pointer-events-none"
+                  className="absolute inset-0 pointer-events-none rounded-[14px]"
                   style={{
                     background: `radial-gradient(${radialOrigin[q.corner]}, ${q.glow} 0%, transparent 65%)`,
                   }}
@@ -261,9 +282,9 @@ export function HomeBetaQuadGridUS() {
                 />
 
                 <div
-                  className={`relative h-full w-full min-h-0 flex flex-col ${cornerAnchor[q.corner]} ${
+                  className={`relative z-10 h-full w-full min-h-0 overflow-hidden flex flex-col ${cornerAnchor[q.corner]} ${
                     touchMode
-                      ? "p-3 sm:p-4 lg:p-5"
+                      ? "p-2.5 sm:p-3.5 lg:p-5"
                       : "p-5 sm:p-7 lg:p-9"
                   }`}
                 >
@@ -275,7 +296,7 @@ export function HomeBetaQuadGridUS() {
                     <h2
                       className={`font-light leading-[1.15] tracking-[-0.02em] text-white max-w-[14em] drop-shadow-[0_2px_12px_rgba(0,0,0,0.4)] ${
                         touchMode
-                          ? "text-[15px] sm:text-[18px] lg:text-[22px]"
+                          ? "text-[13px] sm:text-[16px] lg:text-[22px]"
                           : "text-[16px] sm:text-[22px] lg:text-[30px]"
                       } ${q.singleLine ? "lg:max-w-none lg:whitespace-nowrap" : ""}`}
                     >
@@ -437,14 +458,18 @@ export function HomeBetaQuadGridUS() {
               width={176}
               height={87}
               priority
-              className="relative w-[150px] sm:w-[190px] lg:w-[230px] h-auto drop-shadow-[0_16px_36px_rgba(0,0,0,0.55)]"
+              className={`relative h-auto drop-shadow-[0_16px_36px_rgba(0,0,0,0.55)] ${
+                touchMode
+                  ? "w-[110px] sm:w-[140px] lg:w-[200px]"
+                  : "w-[150px] sm:w-[190px] lg:w-[230px]"
+              }`}
             />
           </motion.div>
         </div>
       </div>
 
-      <div className="px-2 py-4 sm:py-5 lg:py-6 text-center">
-        <p className="text-[18px] sm:text-[24px] lg:text-[32px] font-light leading-[1.35] tracking-[-0.01em] text-fg2">
+      <div className="px-2 py-2.5 sm:py-4 lg:py-6 text-center shrink-0">
+        <p className="text-[12px] min-[400px]:text-[13px] sm:text-[16px] md:text-[20px] lg:text-[32px] font-light leading-[1.35] tracking-[-0.01em] text-fg2">
           {US_HOME_SUBHEAD}
         </p>
       </div>
