@@ -56,10 +56,7 @@ export default function PrivacyPolicyPage() {
       >
         <section className="pt-[120px] pb-[48px] lg:pt-[160px] lg:pb-[64px]">
           <div className="max-w-[760px] mx-auto px-8">
-            <p className="m-0 inline-flex items-center rounded-full border border-amber-300/80 bg-amber-50 px-3 py-1 text-[12px] font-semibold uppercase tracking-[0.08em] text-amber-900">
-              Draft mockup — not production
-            </p>
-            <h1 className="mt-[20px] m-0 text-[40px] lg:text-[56px] font-light leading-[1.05] tracking-[-0.025em] text-navy">
+            <h1 className="m-0 text-[40px] lg:text-[56px] font-light leading-[1.05] tracking-[-0.025em] text-navy">
               Privacy Policy
             </h1>
             <p className="mt-[16px] m-0 text-sm font-semibold text-fg2">
