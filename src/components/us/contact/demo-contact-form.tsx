@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -26,6 +27,7 @@ const schema = z
     solutionOtherText: z.string().optional(),
     message: z.string().optional(),
     botcheck: z.boolean().optional(),
+    privacyConsent: z.boolean().optional(),
     marketingOptIn: z.boolean().optional(),
   })
   .superRefine((data, ctx) => {
@@ -47,6 +49,13 @@ const schema = z
         code: "custom",
         path: ["solutionOtherText"],
         message: "Please add a comment when Other is selected.",
+      });
+    }
+    if (!data.privacyConsent) {
+      ctx.addIssue({
+        code: "custom",
+        path: ["privacyConsent"],
+        message: "Please agree to the Privacy Policy.",
       });
     }
   });
@@ -91,6 +100,7 @@ export function DemoContactForm() {
       solutionOtherText: "",
       message: "",
       botcheck: false,
+      privacyConsent: false,
       marketingOptIn: false,
     },
   });
@@ -144,6 +154,7 @@ export function DemoContactForm() {
         "Job title": data.jobTitle || "(not provided)",
         "Solutions of interest": solutions,
         Message: data.message || "(not provided)",
+        "Privacy Policy consent": data.privacyConsent ? "Yes" : "No",
         "Marketing opt-in": data.marketingOptIn ? "Yes" : "No",
       }),
     });
@@ -407,10 +418,34 @@ export function DemoContactForm() {
       </div>
 
       <p className="text-xs text-fg2 leading-[1.55]">
-        By submitting this form, you acknowledge that Tally Group may collect
-        and use the information you provide to respond to your inquiry and as
-        otherwise permitted by applicable law.
+        <strong className="text-navy">Privacy notice:</strong> The information
+        you provide will be used to respond to your inquiry and improve our
+        services. Please review our{" "}
+        <Link
+          href="/privacy"
+          className="text-navy underline hover:text-turquoise"
+        >
+          Privacy Policy
+        </Link>{" "}
+        for more details.
       </p>
+
+      <div className="flex items-start gap-2">
+        <input
+          id="privacy-consent"
+          type="checkbox"
+          {...register("privacyConsent")}
+          className="mt-[3px] h-[18px] w-[18px] accent-navy shrink-0"
+        />
+        <label htmlFor="privacy-consent" className="text-sm text-fg1 leading-[1.45]">
+          I agree to the Privacy Policy{reqMark}
+        </label>
+      </div>
+      {errors.privacyConsent && (
+        <p className={errorClass} role="alert">
+          {errors.privacyConsent.message}
+        </p>
+      )}
 
       <div className="flex items-start gap-2">
         <input

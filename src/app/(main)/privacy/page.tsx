@@ -247,7 +247,7 @@ export default function PrivacyPolicyPage() {
 
           <Section id="contact-us" title="Contact Us">
             <address className="not-italic m-0 space-y-[4px]">
-              <p className="m-0 font-medium text-navy">Tally Group USA</p>
+              <p className="m-0 font-medium text-navy">Tally Group</p>
               <p className="m-0">1450 Lake Robbins Drive, Suite 160</p>
               <p className="m-0">The Woodlands, TX 77380</p>
               <p className="m-0">
