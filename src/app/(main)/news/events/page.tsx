@@ -14,9 +14,26 @@ export const metadata: Metadata = {
 
 const events: EventItem[] = [
   {
+    slug: "tepa-national-conference-2026",
+    date: "November 4–6, 2026",
+    dateISO: "2026-11-04",
+    endDateISO: "2026-11-06",
+    title: "TEPA National Conference",
+    location: "Austin, TX",
+    description:
+      "A leading gathering of retail energy professionals, uniting brokers, suppliers, consultants, and technology partners for industry education, regulatory and market updates, high-value networking, and discussions on the evolving energy landscape.",
+    href: "https://www.tepausa.org/national-conference/",
+    external: true,
+    tone: 2,
+    icon: "groups",
+    image: "/events/tepa.svg",
+    imageClassName: "object-contain scale-[0.82]",
+  },
+  {
     slug: "emc26",
     date: "October 19–20, 2026",
     dateISO: "2026-10-19",
+    endDateISO: "2026-10-20",
     title: "EMC26",
     location: "Washington, DC",
     description:
@@ -50,7 +67,7 @@ export default function USEventsPage() {
         </div>
       </section>
 
-      {/* Upcoming events grid */}
+      {/* Events grid */}
       <EventsList events={events} />
 
       {/* Meet in person prompt */}

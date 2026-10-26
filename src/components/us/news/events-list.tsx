@@ -1,5 +1,6 @@
 "use client";
 
+import { useMemo, useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { MarketingLink } from "@/components/marketing/marketing-link";
@@ -8,6 +9,7 @@ export type EventItem = {
   slug: string;
   date: string;
   dateISO: string;
+  endDateISO?: string;
   title: string;
   titleLines?: string[];
   location: string;
@@ -17,7 +19,15 @@ export type EventItem = {
   tone: 1 | 2 | 3 | 4;
   icon: string;
   image?: string;
+  imageClassName?: string;
 };
+
+type EventFilter = "upcoming" | "past";
+
+const FILTERS: { id: EventFilter; label: string }[] = [
+  { id: "upcoming", label: "Upcoming" },
+  { id: "past", label: "Past" },
+];
 
 const MEDIA_TONES: Record<
   1 | 2 | 3 | 4,
@@ -62,11 +72,48 @@ const fadeUp = {
   }),
 };
 
+function localTodayISO() {
+  const now = new Date();
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const day = String(now.getDate()).padStart(2, "0");
+  return `${now.getFullYear()}-${month}-${day}`;
+}
+
+function eventEndISO(event: EventItem) {
+  return event.endDateISO ?? event.dateISO;
+}
+
 export function EventsList({ events }: { events: EventItem[] }) {
+  const [filter, setFilter] = useState<EventFilter>("upcoming");
+
+  const visibleEvents = useMemo(() => {
+    const today = localTodayISO();
+    const matched = events.filter((event) => {
+      const upcoming = eventEndISO(event) >= today;
+      return filter === "upcoming" ? upcoming : !upcoming;
+    });
+    return [...matched].sort((a, b) =>
+      filter === "upcoming"
+        ? a.dateISO.localeCompare(b.dateISO)
+        : b.dateISO.localeCompare(a.dateISO),
+    );
+  }, [events, filter]);
+
+  const emptyCopy =
+    filter === "upcoming"
+      ? {
+          title: "No upcoming events to share right now",
+          body: "We'll post new events here as soon as they're scheduled.",
+        }
+      : {
+          title: "No past events to show yet",
+          body: "Events will appear here after they take place.",
+        };
+
   return (
     <section
       className="pt-[40px] pb-[56px] lg:pt-[48px] lg:pb-[72px]"
-      aria-labelledby="events-upcoming-heading"
+      aria-labelledby="events-heading"
     >
       <div className="max-w-[1240px] mx-auto px-8">
         <div className="flex items-baseline gap-3 mb-[24px]">
@@ -75,44 +122,77 @@ export function EventsList({ events }: { events: EventItem[] }) {
               className="w-[18px] h-[1px] bg-turquoise inline-block"
               aria-hidden
             />
-            Upcoming
+            Events &amp; Learning
           </div>
         </div>
         <h2
-          id="events-upcoming-heading"
-          className="text-[24px] lg:text-[32px] font-light leading-[1.2] tracking-[-0.02em] text-navy m-0 mb-[28px] lg:mb-[36px]"
+          id="events-heading"
+          className="text-[24px] lg:text-[32px] font-light leading-[1.2] tracking-[-0.02em] text-navy m-0 mb-[20px]"
         >
-          Upcoming events
+          Industry Events &amp; Learning
         </h2>
 
-        {events.length === 0 ? (
-          <div
-            role="status"
-            className="border border-dashed border-stroke1 rounded-2xl bg-bg2 px-[24px] py-[48px] text-center"
-          >
-            <p className="text-base text-navy font-semibold m-0">
-              No upcoming events to share right now
-            </p>
-            <p className="text-sm text-fg2 mt-[8px] m-0">
-              We&apos;ll post new events here as soon as they&apos;re scheduled.
-            </p>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[24px]">
-            {events.map((event, i) => (
-              <motion.div
-                key={event.slug}
-                custom={i}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-60px" }}
-                variants={fadeUp}
+        <div
+          role="tablist"
+          aria-label="Filter events"
+          className="flex flex-wrap gap-[8px] mb-[28px] lg:mb-[36px]"
+        >
+          {FILTERS.map((option) => {
+            const isActive = filter === option.id;
+            return (
+              <button
+                key={option.id}
+                type="button"
+                role="tab"
+                id={`events-tab-${option.id}`}
+                aria-selected={isActive}
+                aria-controls="events-panel"
+                tabIndex={isActive ? 0 : -1}
+                onClick={() => setFilter(option.id)}
+                className={`inline-flex items-center px-[14px] py-[8px] rounded-full text-[13px] font-medium leading-none border transition-all cursor-pointer ${
+                  isActive
+                    ? "bg-navy text-white border-navy shadow-[0_2px_8px_rgba(44,54,93,0.18)]"
+                    : "bg-white text-fg2 border-stroke1 hover:border-navy/40 hover:text-navy"
+                }`}
               >
-                <EventCard event={event} />
-              </motion.div>
-            ))}
-          </div>
-        )}
+                {option.label}
+              </button>
+            );
+          })}
+        </div>
+
+        <div
+          id="events-panel"
+          role="tabpanel"
+          aria-labelledby={`events-tab-${filter}`}
+        >
+          {visibleEvents.length === 0 ? (
+            <div
+              role="status"
+              className="border border-dashed border-stroke1 rounded-2xl bg-bg2 px-[24px] py-[48px] text-center"
+            >
+              <p className="text-base text-navy font-semibold m-0">
+                {emptyCopy.title}
+              </p>
+              <p className="text-sm text-fg2 mt-[8px] m-0">{emptyCopy.body}</p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[24px]">
+              {visibleEvents.map((event, i) => (
+                <motion.div
+                  key={event.slug}
+                  custom={i}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, margin: "-60px" }}
+                  variants={fadeUp}
+                >
+                  <EventCard event={event} />
+                </motion.div>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
     </section>
   );
@@ -148,7 +228,7 @@ function EventCard({ event }: { event: EventItem }) {
             src={event.image}
             alt=""
             fill
-            className="object-contain scale-[1.2]"
+            className={event.imageClassName ?? "object-contain scale-[1.2]"}
             sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
           />
         ) : (
@@ -259,12 +339,6 @@ export function MeetInPersonSection({
               className="inline-flex items-center gap-2 px-6 py-[12px] rounded-lg text-sm font-semibold bg-navy text-white border border-navy hover:bg-navy-dark hover:border-navy-dark transition-all shadow-sm"
             >
               Contact us
-              <span
-                className="material-symbols-outlined text-[16px]"
-                aria-hidden
-              >
-                arrow_forward
-              </span>
             </MarketingLink>
           </div>
         </div>
