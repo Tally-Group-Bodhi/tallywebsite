@@ -13,13 +13,20 @@ const aboutLinks = [
 ];
 
 const regions = [
-  { key: "au", label: "Australia", shortLabel: "Australia", abbr: "AU" },
+  {
+    key: "au",
+    label: "Australia",
+    shortLabel: "Australia",
+    abbr: "AU",
+    href: "https://www.tally.co/",
+  },
   { key: "us", label: "United States", shortLabel: "United States", abbr: "US" },
-  { key: "jp", label: "Japan", shortLabel: "Japan", abbr: "JP" },
+  { key: "jp", label: "日本", shortLabel: "日本", abbr: "JP", href: "https://www.tally-plus.jp/" },
 ];
 
-const AU_SITE_URL = "https://tally.co";
-const JP_SITE_URL = "https://tally-plus.jp";
+function regionMenuLabel(region: { abbr: string; label: string }) {
+  return `${region.abbr} – ${region.label}`;
+}
 
 export function CorporateHeader() {
   const pathname = usePathname();
@@ -137,38 +144,45 @@ export function CorporateHeader() {
                     const isActive = activeRegion.key === region.key;
                     return (
                       <li key={region.key} role="option" aria-selected={isActive}>
-                        <button
-                          type="button"
-                          className={`w-full text-left px-[12px] py-[10px] rounded-lg text-sm font-medium cursor-pointer border-0 transition-all flex items-center justify-between gap-[8px] ${
-                            isActive
-                              ? "bg-navy text-white"
-                              : "bg-transparent text-fg1 hover:bg-bg3"
-                          }`}
-                          onClick={() => {
-                            setLocationOpen(false);
-                            if (region.key === "us") {
-                              router.push("/");
-                              return;
-                            }
-                            if (region.key === "au") {
-                              window.location.assign(AU_SITE_URL);
-                              return;
-                            }
-                            if (region.key === "jp") {
-                              window.location.assign(JP_SITE_URL);
-                              return;
-                            }
-                            setActiveRegion(region);
-                          }}
-                        >
-                          <span className="flex items-center gap-[8px]">
-                            <span className={`material-symbols-outlined text-[18px] ${isActive ? "text-turquoise" : "text-fg3"}`}>location_on</span>
-                            {region.label}
-                          </span>
-                          {isActive && (
-                            <span className="material-symbols-outlined text-[18px] text-turquoise">check</span>
-                          )}
-                        </button>
+                        {region.href ? (
+                          <a
+                            href={region.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={`w-full text-left px-[12px] py-[10px] rounded-lg text-sm font-medium cursor-pointer border-0 transition-all flex items-center justify-between gap-[8px] ${
+                              isActive
+                                ? "bg-navy text-white"
+                                : "bg-transparent text-fg1 hover:bg-bg3"
+                            }`}
+                            onClick={() => setLocationOpen(false)}
+                          >
+                            <span>{regionMenuLabel(region)}</span>
+                          </a>
+                        ) : (
+                          <button
+                            type="button"
+                            className={`w-full text-left px-[12px] py-[10px] rounded-lg text-sm font-medium cursor-pointer border-0 transition-all flex items-center justify-between gap-[8px] ${
+                              isActive
+                                ? "bg-navy text-white"
+                                : "bg-transparent text-fg1 hover:bg-bg3"
+                            }`}
+                            onClick={() => {
+                              setLocationOpen(false);
+                              if (region.key === "us") {
+                                router.push("/");
+                                return;
+                              }
+                              setActiveRegion(region);
+                            }}
+                          >
+                            <span>{regionMenuLabel(region)}</span>
+                            {isActive && (
+                              <span className="material-symbols-outlined text-[18px] text-turquoise">
+                                check
+                              </span>
+                            )}
+                          </button>
+                        )}
                       </li>
                     );
                   })}

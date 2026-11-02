@@ -13,13 +13,14 @@ import {
 } from "@/contexts/marketing-region";
 
 const regions = [
-  { id: "au", label: "Australia", abbr: "AU", flag: "🇦🇺" },
-  { id: "jp", label: "Japan", abbr: "JP", flag: "🇯🇵" },
-  { id: "us", label: "United States", abbr: "US", flag: "🇺🇸" },
+  { id: "au", label: "Australia", abbr: "AU", href: "https://www.tally.co/" },
+  { id: "us", label: "United States", abbr: "US" },
+  { id: "jp", label: "日本", abbr: "JP", href: "https://www.tally-plus.jp/" },
 ];
 
-const AU_SITE_URL = "https://tally.co";
-const JP_SITE_URL = "https://tally-plus.jp";
+function regionMenuLabel(region: { abbr: string; label: string }) {
+  return `${region.abbr} – ${region.label}`;
+}
 
 type NavChild = { href: string; label: string };
 type NavChildSection = { title: string; items: NavChild[] };
@@ -405,16 +406,6 @@ export function Header() {
 
     if (regionId === "us") {
       router.push(US_MARKETING_BASE || "/");
-      return;
-    }
-
-    if (regionId === "jp") {
-      window.location.assign(JP_SITE_URL);
-      return;
-    }
-
-    if (regionId === "au") {
-      window.location.assign(AU_SITE_URL);
     }
   }
 
@@ -575,25 +566,50 @@ export function Header() {
               </button>
 
               {open && (
-                <div className="absolute top-full right-0 mt-2 w-[180px] bg-white border border-stroke1 rounded-xl shadow-[0_8px_24px_rgba(0,0,0,0.1)] py-1 z-50">
-                  {regions.map((r) => (
-                    <button
-                      key={r.id}
-                      type="button"
-                      onClick={() => selectRegion(r.id)}
-                      className={`w-full flex items-center gap-2.5 px-3.5 py-2.5 text-[13px] text-left transition-colors ${
-                        r.id === activeRegionId
-                          ? "font-semibold text-navy bg-bg2"
-                          : "text-fg1 hover:bg-bg2"
-                      }`}
-                    >
-                      <span className="text-[15px]">{r.flag}</span>
-                      {r.label}
-                      {r.id === activeRegionId && (
-                        <span className="material-symbols-outlined text-[14px] ml-auto text-turquoise">check</span>
-                      )}
-                    </button>
-                  ))}
+                <div className="absolute top-full right-0 mt-2 min-w-[196px] bg-white border border-stroke1 rounded-xl shadow-[0_8px_24px_rgba(0,0,0,0.1)] py-1 z-50">
+                  {regions.map((r) => {
+                    const className = `w-full flex items-center gap-2.5 px-3.5 py-2.5 text-[13px] text-left whitespace-nowrap transition-colors ${
+                      r.id === activeRegionId
+                        ? "font-semibold text-navy bg-bg2"
+                        : "text-fg1 hover:bg-bg2"
+                    }`;
+                    const label = (
+                      <>
+                        {regionMenuLabel(r)}
+                        {r.id === activeRegionId && (
+                          <span className="material-symbols-outlined text-[14px] ml-auto text-turquoise">
+                            check
+                          </span>
+                        )}
+                      </>
+                    );
+
+                    if (r.href) {
+                      return (
+                        <a
+                          key={r.id}
+                          href={r.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={() => setOpen(false)}
+                          className={className}
+                        >
+                          {label}
+                        </a>
+                      );
+                    }
+
+                    return (
+                      <button
+                        key={r.id}
+                        type="button"
+                        onClick={() => selectRegion(r.id)}
+                        className={className}
+                      >
+                        {label}
+                      </button>
+                    );
+                  })}
                 </div>
               )}
             </div>
@@ -713,21 +729,39 @@ export function Header() {
               <div>
                 <p className="text-[11px] uppercase tracking-[0.1em] text-fg2 font-semibold mb-2">Region</p>
                 <div className="flex flex-wrap gap-1.5">
-                  {regions.map((r) => (
-                    <button
-                      key={r.id}
-                      type="button"
-                      onClick={() => selectRegion(r.id)}
-                      className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-[12px] font-medium leading-none transition-all ${
-                        r.id === activeRegionId
-                          ? "border-navy bg-navy text-white"
-                          : "border-stroke1 bg-white/70 text-fg1 hover:bg-bg3"
-                      }`}
-                    >
-                      <span className="text-[14px]">{r.flag}</span>
-                      {r.label}
-                    </button>
-                  ))}
+                  {regions.map((r) => {
+                    const className = `inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-[12px] font-medium leading-none transition-all ${
+                      r.id === activeRegionId
+                        ? "border-navy bg-navy text-white"
+                        : "border-stroke1 bg-white/70 text-fg1 hover:bg-bg3"
+                    }`;
+
+                    if (r.href) {
+                      return (
+                        <a
+                          key={r.id}
+                          href={r.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={closeMobile}
+                          className={className}
+                        >
+                          {regionMenuLabel(r)}
+                        </a>
+                      );
+                    }
+
+                    return (
+                      <button
+                        key={r.id}
+                        type="button"
+                        onClick={() => selectRegion(r.id)}
+                        className={className}
+                      >
+                        {regionMenuLabel(r)}
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
 
