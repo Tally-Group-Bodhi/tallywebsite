@@ -28,7 +28,6 @@ const schema = z
     message: z.string().optional(),
     botcheck: z.boolean().optional(),
     privacyConsent: z.boolean().optional(),
-    marketingOptIn: z.boolean().optional(),
   })
   .superRefine((data, ctx) => {
     const any =
@@ -101,7 +100,6 @@ export function DemoContactForm() {
       message: "",
       botcheck: false,
       privacyConsent: false,
-      marketingOptIn: false,
     },
   });
 
@@ -155,7 +153,6 @@ export function DemoContactForm() {
         "Solutions of interest": solutions,
         Message: data.message || "(not provided)",
         "Privacy Policy consent": data.privacyConsent ? "Yes" : "No",
-        "Marketing opt-in": data.marketingOptIn ? "Yes" : "No",
       }),
     });
 
@@ -446,20 +443,6 @@ export function DemoContactForm() {
           {errors.privacyConsent.message}
         </p>
       )}
-
-      <div className="flex items-start gap-2">
-        <input
-          id="marketing-opt-in"
-          type="checkbox"
-          {...register("marketingOptIn")}
-          className="mt-[3px] h-[18px] w-[18px] accent-navy shrink-0"
-        />
-        <label htmlFor="marketing-opt-in" className="text-sm text-fg1 leading-[1.45]">
-          I would like to receive marketing communications from Tally Group and
-          its affiliated companies about products, services and other updates. I
-          understand that I can opt out at any time.
-        </label>
-      </div>
 
       <button
         type="submit"
