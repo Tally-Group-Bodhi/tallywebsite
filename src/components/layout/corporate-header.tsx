@@ -147,8 +147,6 @@ export function CorporateHeader() {
                         {region.href ? (
                           <a
                             href={region.href}
-                            target="_blank"
-                            rel="noopener noreferrer"
                             className={`w-full text-left px-[12px] py-[10px] rounded-lg text-sm font-medium cursor-pointer border-0 transition-all flex items-center justify-between gap-[8px] ${
                               isActive
                                 ? "bg-navy text-white"

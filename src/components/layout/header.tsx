@@ -589,8 +589,6 @@ export function Header() {
                         <a
                           key={r.id}
                           href={r.href}
-                          target="_blank"
-                          rel="noopener noreferrer"
                           onClick={() => setOpen(false)}
                           className={className}
                         >
@@ -741,8 +739,6 @@ export function Header() {
                         <a
                           key={r.id}
                           href={r.href}
-                          target="_blank"
-                          rel="noopener noreferrer"
                           onClick={closeMobile}
                           className={className}
                         >
