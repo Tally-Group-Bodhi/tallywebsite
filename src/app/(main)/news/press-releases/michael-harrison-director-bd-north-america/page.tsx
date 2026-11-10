@@ -81,20 +81,25 @@ export default function USMichaelHarrisonAppointmentPage() {
               energy software sectors.
             </p>
 
-            <p className="text-[17px] leading-[1.75] text-fg1 m-0">
-              &ldquo;Michael brings a nice diversification of skills to this
-              critical leadership position. We were looking for more than a
-              salesperson and Michael has proven to be able to achieve success
-              on several fronts in the retail energy markets,&rdquo; said Peter
-              Weigand, Tally Group Chief Growth Officer.
-            </p>
-            <p className="text-[17px] leading-[1.75] text-fg1 m-0">
-              &ldquo;I&apos;m excited to join Tally Group at such an important
-              time in the company&apos;s growth journey,&rdquo; said Harrison.
-              &ldquo;I look forward to working with customers and partners across
-              North America to support their success and contribute to the
-              company&apos;s continued growth.&rdquo;
-            </p>
+            <blockquote className="m-0 mt-[12px] p-[28px] lg:p-[32px] rounded-2xl bg-white flex flex-col gap-[14px]">
+              <p className="text-[17px] leading-[1.75] text-fg1 m-0">
+                &ldquo;Michael brings a nice diversification of skills to this
+                critical leadership position. We were looking for more than a
+                salesperson and Michael has proven to be able to achieve success
+                on several fronts in the retail energy markets,&rdquo; said
+                Peter Weigand, Tally Group Chief Growth Officer.
+              </p>
+            </blockquote>
+
+            <blockquote className="m-0 mt-[12px] p-[28px] lg:p-[32px] rounded-2xl bg-white flex flex-col gap-[14px]">
+              <p className="text-[17px] leading-[1.75] text-fg1 m-0">
+                &ldquo;I&apos;m excited to join Tally Group at such an important
+                time in the company&apos;s growth journey,&rdquo; said Harrison.
+                &ldquo;I look forward to working with customers and partners
+                across North America to support their success and contribute to
+                the company&apos;s continued growth.&rdquo;
+              </p>
+            </blockquote>
 
             <h2 className="text-[22px] lg:text-[28px] font-light leading-[1.15] tracking-[-0.02em] text-navy m-0 mt-[40px] mb-[4px]">
               About Tally Group

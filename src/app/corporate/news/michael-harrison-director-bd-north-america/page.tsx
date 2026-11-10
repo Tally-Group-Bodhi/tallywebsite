@@ -78,20 +78,25 @@ export default function MichaelHarrisonAppointmentPage() {
               energy software sectors.
             </p>
 
-            <p className="text-lg leading-[1.55] text-fg2">
-              &ldquo;Michael brings a nice diversification of skills to this
-              critical leadership position. We were looking for more than a
-              salesperson and Michael has proven to be able to achieve success
-              on several fronts in the retail energy markets,&rdquo; said Peter
-              Weigand, Tally Group Chief Growth Officer.
-            </p>
-            <p className="text-lg leading-[1.55] text-fg2">
-              &ldquo;I&apos;m excited to join Tally Group at such an important
-              time in the company&apos;s growth journey,&rdquo; said Harrison.
-              &ldquo;I look forward to working with customers and partners across
-              North America to support their success and contribute to the
-              company&apos;s continued growth.&rdquo;
-            </p>
+            <blockquote className="my-[32px] py-[24px] px-[28px] rounded-xl bg-bg2 border-l-[3px] border-turquoise space-y-[12px]">
+              <p className="text-sm leading-[1.55] text-fg1">
+                &ldquo;Michael brings a nice diversification of skills to this
+                critical leadership position. We were looking for more than a
+                salesperson and Michael has proven to be able to achieve success
+                on several fronts in the retail energy markets,&rdquo; said
+                Peter Weigand, Tally Group Chief Growth Officer.
+              </p>
+            </blockquote>
+
+            <blockquote className="my-[32px] py-[24px] px-[28px] rounded-xl bg-bg2 border-l-[3px] border-turquoise space-y-[12px]">
+              <p className="text-sm leading-[1.55] text-fg1">
+                &ldquo;I&apos;m excited to join Tally Group at such an important
+                time in the company&apos;s growth journey,&rdquo; said Harrison.
+                &ldquo;I look forward to working with customers and partners
+                across North America to support their success and contribute to
+                the company&apos;s continued growth.&rdquo;
+              </p>
+            </blockquote>
 
             <div className="text-xs font-medium text-fg2 uppercase tracking-[0.1em] mt-[48px] mb-[14px] inline-flex items-center gap-2">
               <span className="w-[18px] h-[1px] bg-turquoise inline-block" />
