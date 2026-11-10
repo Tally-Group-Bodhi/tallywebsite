@@ -14,6 +14,7 @@ const usPageRedirects = [
   "/insights/resources",
   "/news/events",
   "/news/press-releases",
+  "/news/press-releases/michael-harrison-director-bd-north-america",
   "/news/press-releases/skipping-stone-acquisition",
   "/products/acquire",
   "/products/acquire/uconx",

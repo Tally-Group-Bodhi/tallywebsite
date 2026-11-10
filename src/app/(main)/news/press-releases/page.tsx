@@ -12,6 +12,19 @@ export const metadata: Metadata = {
 
 const pressReleases: PressRelease[] = [
   {
+    slug: "michael-harrison-director-bd-north-america",
+    date: "October 5, 2026",
+    dateISO: "2026-10-05",
+    title:
+      "Tally Group Appoints Michael Harrison as Director of Business Development, North America",
+    excerpt:
+      "Tally Group announces the appointment of Michael Harrison as Director of Business Development, North America. Harrison will lead business development initiatives across the region to expand adoption of the Tally Group software platform.",
+    href: "/news/press-releases/michael-harrison-director-bd-north-america",
+    image: "/corporate/Michael Harrison PR Image.png",
+    imageAlt:
+      "Announcement of Michael Harrison joining Tally Group as Director of Business Development, North America",
+  },
+  {
     slug: "skipping-stone-acquisition",
     date: "March 4, 2026",
     dateISO: "2026-03-04",
